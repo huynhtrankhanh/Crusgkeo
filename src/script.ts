@@ -1,4 +1,8 @@
-const canvas = document.getElementById("canvas");
+import MousePosition from "./MousePosition";
+
+const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+
+const mousePosition = new MousePosition(canvas);
 
 let width = window.innerWidth;
 let height = window.innerHeight;
@@ -13,6 +17,8 @@ window.addEventListener("resize", () => {
 });
 
 const context = canvas.getContext("2d");
+if (context === null)
+    throw new Error("Failure obtaining context");
 
 class GameState {
 
@@ -45,7 +51,7 @@ requestAnimationFrame(function animate() {
 	
 	const shapeSize = 48;
 	
-	const drawCircle = (centerX, centerY) => {
+	const drawCircle = (centerX: number, centerY: number) => {
 		context.lineWidth = 1;
 		context.strokeStyle = "black";
 		context.beginPath();
@@ -53,7 +59,7 @@ requestAnimationFrame(function animate() {
 		context.stroke();
 	};
 	
-	const drawSquare = (centerX, centerY) => {
+	const drawSquare = (centerX: number, centerY: number) => {
 		context.lineWidth = 1;
 		context.strokeStyle = "black";
 		const x = centerX - shapeSize / 2;
@@ -63,7 +69,7 @@ requestAnimationFrame(function animate() {
 		context.stroke();
 	};
 	
-	const drawDiamond = (centerX, centerY) => {
+	const drawDiamond = (centerX: number, centerY: number) => {
 		context.lineWidth = 1;
 		context.strokeStyle = "black";
 		context.beginPath();
@@ -75,7 +81,7 @@ requestAnimationFrame(function animate() {
 		context.stroke();
 	};
 	
-	const drawColorBomb = (centerX, centerY) => {
+	const drawColorBomb = (centerX: number, centerY: number) => {
 		context.lineWidth = 1;
 		context.strokeStyle = "black";
 		context.translate(centerX, centerY);
@@ -95,7 +101,7 @@ requestAnimationFrame(function animate() {
 		context.translate(-centerX, -centerY);
 	};
 	
-	const drawVerticalStripes = (centerX, centerY) => {
+	const drawVerticalStripes = (centerX: number, centerY: number) => {
 		context.lineWidth = 3;
 		context.strokeStyle = "black";
 		context.translate(centerX, centerY);
@@ -114,7 +120,7 @@ requestAnimationFrame(function animate() {
 		context.translate(-centerX, -centerY);
 	};
 	
-	const drawHorizontalStripes = (centerX, centerY) => {
+	const drawHorizontalStripes = (centerX: number, centerY: number) => {
 		context.lineWidth = 3;
 		context.strokeStyle = "black";
 		context.translate(centerX, centerY);
@@ -156,3 +162,5 @@ requestAnimationFrame(function animate() {
 				drawColorBomb(x + cellWidth / 2, y + cellWidth / 2);
 		}
 });
+
+export {};
