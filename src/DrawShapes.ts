@@ -43,7 +43,7 @@ class DrawShapes {
 
     const rayCount = 10;
     for (let i = 0; i < rayCount; i++) {
-      const radius = this.#shapeSize / 2;
+      const radius = this.#shapeSize / 2 * 1.1;
 
       this.#context.moveTo(0, (2 * radius) / 3);
       this.#context.lineTo(0, radius);
