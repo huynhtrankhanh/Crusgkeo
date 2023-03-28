@@ -1,11 +1,11 @@
-type Candy =
+export type Candy =
   | {
       type: "circle" | "square" | "diamond";
       attribute: "none" | "striped vertical" | "striped horizontal" | "wrapped";
     }
   | { type: "color bomb" };
 
-type Board = Candy[][];
+export type Board = Candy[][];
 
 const doesBoardHaveMatches = (board: Board) =>
   areThereThreeItemsOnALine(board.map((row) => row.map(({ type }) => type)));
@@ -42,6 +42,6 @@ export const generateAnyBoard = (width: number, height: number): Board => {
 export const generateBoardWithoutMatches = (width: number, height: number) => {
   while (true) {
     const board = generateAnyBoard(width, height);
-    if (!areThereThreeItemsOnALine(board)) return board;
+    if (!doesBoardHaveMatches(board)) return board;
   }
 };
