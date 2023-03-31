@@ -85,6 +85,21 @@ class DrawBoard {
         }
       }
   }
+
+  highlightCell(row: number, column: number) {
+    const centerX = this.#width / 2;
+    const centerY = this.#height / 2;
+    const topLeftX = centerX - (this.#cellWidth * this.#columnCount) / 2;
+    const topLeftY = centerY - (this.#cellWidth * this.#rowCount) / 2;
+    this.#context.lineWidth = 3;
+    this.#context.strokeStyle = "red";
+    this.#context.strokeRect(
+      topLeftX + column * this.#cellWidth,
+      topLeftY + row * this.#cellWidth,
+      this.#cellWidth,
+      this.#cellWidth
+    );
+  }
 }
 
 export default DrawBoard;

@@ -1,6 +1,6 @@
 import { generateBoardWithoutMatches } from "./Board";
+import DetectCell from "./DetectCell";
 import DrawBoard from "./DrawBoard";
-import DrawShapes from "./DrawShapes";
 import MousePosition from "./MousePosition";
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -21,17 +21,6 @@ window.addEventListener("resize", () => {
 
 const context = canvas.getContext("2d");
 if (context === null) throw new Error("Failure obtaining context");
-
-class GameState {}
-
-class Grid {}
-
-class CandiesFalling extends GameState {}
-
-class CandiesIdle extends GameState {}
-
-const centerX = width / 2;
-const centerY = height / 2;
 
 const cellWidth = 64;
 const rowCount = 8;
@@ -57,6 +46,18 @@ requestAnimationFrame(function animate() {
   );
 
   drawBoard.drawBoard(board);
+
+  const detectCell = new DetectCell(
+    width,
+    height,
+    rowCount,
+    columnCount,
+    cellWidth
+  );
+
+  const cell = detectCell.detect(mousePosition.x, mousePosition.y);
+
+  if (cell !== null) drawBoard.highlightCell(cell.row, cell.column);
 });
 
 export {};
