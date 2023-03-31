@@ -19,4 +19,9 @@ type GameState =
       swappedWith: { row: number; column: number };
       animateProgress: number;
     }
-  | { board: Board; effects: Effect[]; animateProgress: number };
+  | {
+      board: Board;
+      type: "cascade";
+      effects: Effect[];
+      animateProgress: number;
+    };
