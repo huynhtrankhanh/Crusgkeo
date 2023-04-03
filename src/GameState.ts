@@ -40,7 +40,17 @@ class GameStateManager {
     };
   }
 
-  holdOutsideBoard() {}
+  holdOutsideBoard() {
+    if (this.state.type === "nothing") {
+      this.state.mouseNotReleasedYet = true;
+    } else if (this.state.type === "cell held") {
+      this.state = {
+        board: this.state.board,
+        mouseNotReleasedYet: true,
+        type: "nothing",
+      };
+    }
+  }
 
   // since calling this function may trigger an animation, a time origin is taken
   holdCell(row: number, column: number, timeOrigin: number) {
