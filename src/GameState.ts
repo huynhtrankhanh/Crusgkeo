@@ -19,13 +19,15 @@ type GameState =
       type: "animate swap" | "reject swap";
       heldCell: { row: number; column: number };
       swappedWith: { row: number; column: number };
-      animateProgress: number;
+      animationTimeOrigin: number;
+      mouseNotReleasedYet: boolean;
     }
   | {
       board: Board;
       type: "cascade";
       effects: Effect[];
       animateProgress: number;
+      mouseNotReleasedYet: boolean;
     };
 
 class GameStateManager {
@@ -38,8 +40,11 @@ class GameStateManager {
     };
   }
 
-  holdCell(row: number, column: number) {
-    if (this.state.type === "nothing" && this.state.mouseNotReleasedYet) {
+  holdOutsideBoard() {}
+
+  // since calling this function may trigger an animation, a time origin is taken
+  holdCell(row: number, column: number, timeOrigin: number) {
+    if (this.state.type !== "cell held" && this.state.mouseNotReleasedYet) {
       return;
     }
     if (this.state.type === "nothing") {
@@ -64,7 +69,8 @@ class GameStateManager {
           type: "animate swap",
           heldCell: this.state.heldCell,
           swappedWith: { row, column },
-          animateProgress: 0,
+          animationTimeOrigin: timeOrigin,
+          mouseNotReleasedYet: true,
         };
       } else {
         this.state = {
@@ -84,10 +90,28 @@ class GameStateManager {
         type: "nothing",
       };
       return;
-    }
-    if (this.state.type === "nothing") {
+    } else {
       this.state.mouseNotReleasedYet = false;
       return;
+    }
+  }
+
+  // when the swap animation is complete it's time to call this function
+  completeSwap() {
+    if (this.state.type === "animate swap") {
+      const { row: row1, column: column1 } = this.state.heldCell;
+      const { row: row2, column: column2 } = this.state.swappedWith;
+
+      [this.state.board[row1][column1], this.state.board[row2][column2]] = [
+        this.state.board[row2][column2],
+        this.state.board[row1][column1],
+      ];
+
+      this.state = {
+        board: this.state.board,
+        mouseNotReleasedYet: this.state.mouseNotReleasedYet,
+        type: "nothing",
+      };
     }
   }
 }
