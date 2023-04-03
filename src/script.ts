@@ -71,7 +71,7 @@ requestAnimationFrame(function animate(time) {
     drawBoard.drawBoard(board, [heldCell, swappedWith]);
     const { animationTimeOrigin } = state.state;
 
-    const animationDuration = 300;
+    const animationDuration = 100;
     const progress = (time - animationTimeOrigin) / animationDuration;
     if (progress >= 1) {
       state.completeSwap();
