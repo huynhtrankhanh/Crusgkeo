@@ -37,6 +37,45 @@ class GameStateManager {
       mouseNotReleasedYet: false,
     };
   }
+
+  holdCell(row: number, column: number) {
+    if (this.state.type === "nothing" && this.state.mouseNotReleasedYet) {
+      return;
+    }
+    if (this.state.type === "nothing") {
+      this.state = {
+        board: this.state.board,
+        type: "cell held",
+        heldCell: { row, column },
+      };
+    } else if (this.state.type === "cell held") {
+      if (
+        row === this.state.heldCell.row &&
+        column === this.state.heldCell.column
+      )
+        return;
+      if (
+        Math.abs(row - this.state.heldCell.row) +
+          Math.abs(column - this.state.heldCell.column) ===
+        1
+      ) {
+        this.state = {
+          board: this.state.board,
+          type: "animate swap",
+          heldCell: this.state.heldCell,
+          swappedWith: { row, column },
+          animateProgress: 0,
+        };
+      } else {
+        this.state = {
+          board: this.state.board,
+          type: "nothing",
+          mouseNotReleasedYet: true,
+        };
+      }
+    }
+  }
+
   releaseMouse() {
     if (this.state.type === "cell held") {
       this.state = {
