@@ -24,7 +24,7 @@ const context = canvas.getContext("2d");
 if (context === null) throw new Error("Failure obtaining context");
 
 const cellWidth = 64;
-const rowCount = 8;
+const rowCount = 3;
 const columnCount = 8;
 
 const shapeSize = 48;
