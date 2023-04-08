@@ -29,7 +29,6 @@ const columnCount = 8;
 const shapeSize = 48;
 
 const state = new GameStateManager(rowCount, columnCount);
-const board = state.state.board;
 
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
@@ -70,14 +69,14 @@ requestAnimationFrame(function animate(time) {
     state.state.type === "animate swap" ||
     state.state.type === "reject swap"
   ) {
-    const { heldCell, swappedWith } = state.state;
+    const { heldCell, swappedWith, board } = state.state;
     drawBoard.drawBoard(board, [heldCell, swappedWith]);
     const { animationTimeOrigin } = state.state;
 
-    const animationDuration = 100;
+    const animationDuration = state.state.type === "reject swap" ? 300 : 100;
     const progress = (time - animationTimeOrigin) / animationDuration;
     if (progress >= 1) {
-      state.completeSwap();
+      state.completeSwap(time);
       drawBoard.drawBoard(board);
     } else {
       drawBoard.displayPartialSwap(
@@ -92,7 +91,8 @@ requestAnimationFrame(function animate(time) {
           : 2 - 2 * progress
       );
     }
-  } else {
+  } else if (state.state.type !== "new candies") {
+    const { board } = state.state;
     drawBoard.drawBoard(board);
   }
 

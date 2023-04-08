@@ -1,7 +1,12 @@
 import {
   Board,
+  BoardWithBlanks,
+  Candy,
+  blankAllMatches,
   doesBoardHaveMatches,
+  fillNewCandies,
   generateBoardWithoutMatches,
+  generateNewCandies,
 } from "./Board";
 
 type Effect = undefined; // sorry let's stub this out for now
@@ -27,10 +32,10 @@ type GameState =
       mouseNotReleasedYet: boolean;
     }
   | {
-      board: Board;
-      type: "cascade";
-      effects: Effect[];
-      animateProgress: number;
+      board: BoardWithBlanks;
+      type: "new candies";
+      newCandies: Candy[][];
+      animationTimeOrigin: number;
       mouseNotReleasedYet: boolean;
     };
 
@@ -79,13 +84,14 @@ class GameStateManager {
         1
       ) {
         const { row: row1, column: column1 } = this.state.heldCell;
+        const { board } = this.state;
         const determineType = (): "animate swap" | "reject swap" => {
           // Swap two cells temporarily to check whether this move is legal
           [this.state.board[row][column], this.state.board[row1][column1]] = [
             this.state.board[row1][column1],
             this.state.board[row][column],
           ];
-          const matchesExist = doesBoardHaveMatches(this.state.board);
+          const matchesExist = doesBoardHaveMatches(board);
           // Swap two cells back
           [this.state.board[row][column], this.state.board[row1][column1]] = [
             this.state.board[row1][column1],
@@ -127,7 +133,8 @@ class GameStateManager {
   }
 
   // when the swap animation is complete it's time to call this function
-  completeSwap() {
+  // since after calling this function additional animations may be triggered, a time origin is taken
+  completeSwap(animationTimeOrigin: number) {
     if (this.state.type === "animate swap") {
       const { row: row1, column: column1 } = this.state.heldCell;
       const { row: row2, column: column2 } = this.state.swappedWith;
@@ -136,14 +143,40 @@ class GameStateManager {
         this.state.board[row2][column2],
         this.state.board[row1][column1],
       ];
-    }
 
-    if (
-      this.state.type === "animate swap" ||
-      this.state.type === "reject swap"
-    ) {
+      const blankedBoard = blankAllMatches(this.state.board);
+      this.state = {
+        board: blankedBoard,
+        mouseNotReleasedYet: this.state.mouseNotReleasedYet,
+        type: "new candies",
+        newCandies: generateNewCandies(blankedBoard),
+        animationTimeOrigin,
+      };
+    } else if (this.state.type === "reject swap") {
       this.state = {
         board: this.state.board,
+        mouseNotReleasedYet: this.state.mouseNotReleasedYet,
+        type: "nothing",
+      };
+    }
+  }
+
+  completeFall(animationTimeOrigin: number) {
+    if (this.state.type !== "new candies") return;
+    const newBoard = fillNewCandies(this.state.board, this.state.newCandies);
+
+    if (doesBoardHaveMatches(newBoard)) {
+      const blankedBoard = blankAllMatches(newBoard);
+      this.state = {
+        board: blankedBoard,
+        mouseNotReleasedYet: this.state.mouseNotReleasedYet,
+        type: "new candies",
+        newCandies: generateNewCandies(blankedBoard),
+        animationTimeOrigin,
+      };
+    } else {
+      this.state = {
+        board: newBoard,
         mouseNotReleasedYet: this.state.mouseNotReleasedYet,
         type: "nothing",
       };
