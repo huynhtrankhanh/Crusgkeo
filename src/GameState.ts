@@ -9,8 +9,6 @@ import {
   generateNewCandies,
 } from "./Board";
 
-type Effect = undefined; // sorry let's stub this out for now
-
 type GameState =
   | {
       board: Board;
