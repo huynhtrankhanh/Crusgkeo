@@ -1,4 +1,8 @@
-import { Board, generateBoardWithoutMatches } from "./Board";
+import {
+  Board,
+  doesBoardHaveMatches,
+  generateBoardWithoutMatches,
+} from "./Board";
 
 type Effect = undefined; // sorry let's stub this out for now
 
@@ -74,9 +78,25 @@ class GameStateManager {
           Math.abs(column - this.state.heldCell.column) ===
         1
       ) {
+        const { row: row1, column: column1 } = this.state.heldCell;
+        const determineType = (): "animate swap" | "reject swap" => {
+          // Swap two cells temporarily to check whether this move is legal
+          [this.state.board[row][column], this.state.board[row1][column1]] = [
+            this.state.board[row1][column1],
+            this.state.board[row][column],
+          ];
+          const matchesExist = doesBoardHaveMatches(this.state.board);
+          // Swap two cells back
+          [this.state.board[row][column], this.state.board[row1][column1]] = [
+            this.state.board[row1][column1],
+            this.state.board[row][column],
+          ];
+          return matchesExist ? "animate swap" : "reject swap";
+        };
+
         this.state = {
           board: this.state.board,
-          type: "animate swap",
+          type: determineType(),
           heldCell: this.state.heldCell,
           swappedWith: { row, column },
           animationTimeOrigin: timeOrigin,
@@ -116,7 +136,12 @@ class GameStateManager {
         this.state.board[row2][column2],
         this.state.board[row1][column1],
       ];
+    }
 
+    if (
+      this.state.type === "animate swap" ||
+      this.state.type === "reject swap"
+    ) {
       this.state = {
         board: this.state.board,
         mouseNotReleasedYet: this.state.mouseNotReleasedYet,

@@ -66,7 +66,10 @@ requestAnimationFrame(function animate(time) {
     state.releaseMouse();
   }
 
-  if (state.state.type === "animate swap") {
+  if (
+    state.state.type === "animate swap" ||
+    state.state.type === "reject swap"
+  ) {
     const { heldCell, swappedWith } = state.state;
     drawBoard.drawBoard(board, [heldCell, swappedWith]);
     const { animationTimeOrigin } = state.state;
@@ -82,7 +85,11 @@ requestAnimationFrame(function animate(time) {
         board[swappedWith.row][swappedWith.column],
         heldCell,
         swappedWith,
-        progress
+        state.state.type === "animate swap"
+          ? progress
+          : progress <= 0.5
+          ? 2 * progress
+          : 2 - 2 * progress
       );
     }
   } else {

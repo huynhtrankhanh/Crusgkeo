@@ -7,7 +7,9 @@ export type Candy =
 
 export type Board = Candy[][];
 
-const doesBoardHaveMatches = (board: Board) =>
+export type BoardWithBlanks = (Candy | null)[][];
+
+export const doesBoardHaveMatches = (board: Board) =>
   areThereThreeItemsOnALine(board.map((row) => row.map(({ type }) => type)));
 
 const areThereThreeItemsOnALine = <T>(board: T[][]) =>
