@@ -22,16 +22,16 @@ window.addEventListener("resize", () => {
 const context = canvas.getContext("2d");
 if (context === null) throw new Error("Failure obtaining context");
 
-const cellWidth = 64;
 const rowCount = 3;
 const columnCount = 8;
-
-const shapeSize = 48;
 
 const state = new GameStateManager(rowCount, columnCount);
 
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
+
+  const cellWidth = Math.trunc(Math.min((width - 20) / rowCount, (height - 20) / columnCount));
+  const shapeSize = Math.trunc(cellWidth * 0.85);
 
   const drawBoard = new DrawBoard(
     width,
