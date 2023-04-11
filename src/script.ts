@@ -33,8 +33,6 @@ const state = new GameStateManager(rowCount, columnCount);
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
 
-  context.clearRect(0, 0, width, height);
-
   const drawBoard = new DrawBoard(
     width,
     height,
