@@ -100,8 +100,6 @@ requestAnimationFrame(function animate(time) {
       (time - state.state.animationTimeOrigin) / animationDuration;
     if (progress >= 1) {
       state.completeShrink(time);
-      animate(time);
-      return;
     } else {
       drawBoard.drawBoard(state.state.board, {
         type: "shrink candies",
@@ -111,8 +109,6 @@ requestAnimationFrame(function animate(time) {
     }
   } else if (state.state.type === "new candies") {
     state.completeFall(time);
-    animate(time);
-    return;
   } else {
     const { board } = state.state;
     drawBoard.drawBoard(board);
