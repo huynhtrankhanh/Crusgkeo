@@ -30,7 +30,7 @@ const state = new GameStateManager(rowCount, columnCount);
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
 
-  const cellWidth = Math.trunc(Math.min((width - 20) / rowCount, (height - 20) / columnCount));
+  const cellWidth = Math.trunc(Math.min((width - 20) / columnCount, (height - 20) / rowCount));
   const shapeSize = Math.trunc(cellWidth * 0.85);
 
   const drawBoard = new DrawBoard(
