@@ -53,38 +53,7 @@ export const blankAllMatches = (board: Board): BoardWithBlanks => {
   const height = board.length;
   const width = board[0].length;
 
-  const marked = Array.from({ length: width * height }, () => false);
-  const mark = (row: number, column: number) => {
-    marked[row * width + column] = true;
-  };
-  const check = (row: number, column: number) => marked[row * width + column];
-
-  for (let row = 0; row < height; row++)
-    for (let column = 0; column < width; column++) {
-      if (row + 3 <= height) {
-        const type1 = board[row][column].type;
-        const type2 = board[row + 1][column].type;
-        const type3 = board[row + 2][column].type;
-
-        if (type1 === type2 && type2 === type3) {
-          mark(row, column);
-          mark(row + 1, column);
-          mark(row + 2, column);
-        }
-      }
-
-      if (column + 3 <= width) {
-        const type1 = board[row][column].type;
-        const type2 = board[row][column + 1].type;
-        const type3 = board[row][column + 2].type;
-
-        if (type1 === type2 && type2 === type3) {
-          mark(row, column);
-          mark(row, column + 1);
-          mark(row, column + 2);
-        }
-      }
-    }
+  const check = getToBeBlankedCells(board);
 
   const newBoard: BoardWithBlanks = board;
 
@@ -130,3 +99,43 @@ export const fillNewCandies = (
       ...(row.filter((x) => x !== null) as Candy[]),
     ])
   );
+
+export const getToBeBlankedCells = (board: Board) => {
+  const width = board[0].length;
+  const height = board.length;
+
+  const marked = Array.from({ length: width * height }, () => false);
+  const mark = (row: number, column: number) => {
+    marked[row * width + column] = true;
+  };
+  const check = (row: number, column: number) => marked[row * width + column];
+
+  for (let row = 0; row < height; row++)
+    for (let column = 0; column < width; column++) {
+      if (row + 3 <= height) {
+        const type1 = board[row][column].type;
+        const type2 = board[row + 1][column].type;
+        const type3 = board[row + 2][column].type;
+
+        if (type1 === type2 && type2 === type3) {
+          mark(row, column);
+          mark(row + 1, column);
+          mark(row + 2, column);
+        }
+      }
+
+      if (column + 3 <= width) {
+        const type1 = board[row][column].type;
+        const type2 = board[row][column + 1].type;
+        const type3 = board[row][column + 2].type;
+
+        if (type1 === type2 && type2 === type3) {
+          mark(row, column);
+          mark(row, column + 1);
+          mark(row, column + 2);
+        }
+      }
+    }
+  return check;
+}
+

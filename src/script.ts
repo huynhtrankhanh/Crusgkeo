@@ -70,7 +70,10 @@ requestAnimationFrame(function animate(time) {
     state.state.type === "reject swap"
   ) {
     const { heldCell, swappedWith, board } = state.state;
-    drawBoard.drawBoard(board, [heldCell, swappedWith]);
+    drawBoard.drawBoard(board, {
+      type: "ignore cells",
+      cells: [heldCell, swappedWith],
+    });
     const { animationTimeOrigin } = state.state;
 
     const animationDuration = state.state.type === "reject swap" ? 300 : 100;
@@ -91,7 +94,26 @@ requestAnimationFrame(function animate(time) {
           : 2 - 2 * progress
       );
     }
-  } else if (state.state.type !== "new candies") {
+  } else if (state.state.type === "shrink candies") {
+    const animationDuration = 100;
+    const progress =
+      (time - state.state.animationTimeOrigin) / animationDuration;
+    if (progress >= 1) {
+      state.completeShrink(time);
+      animate(time);
+      return;
+    } else {
+      drawBoard.drawBoard(state.state.board, {
+        type: "shrink candies",
+        checkAffected: state.state.toBeCleared,
+        progress,
+      });
+    }
+  } else if (state.state.type === "new candies") {
+    state.completeFall(time);
+    animate(time);
+    return;
+  } else {
     const { board } = state.state;
     drawBoard.drawBoard(board);
   }

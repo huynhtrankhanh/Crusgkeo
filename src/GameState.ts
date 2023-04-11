@@ -7,6 +7,7 @@ import {
   fillNewCandies,
   generateBoardWithoutMatches,
   generateNewCandies,
+  getToBeBlankedCells,
 } from "./Board";
 
 type GameState =
@@ -26,6 +27,13 @@ type GameState =
       type: "animate swap" | "reject swap";
       heldCell: { row: number; column: number };
       swappedWith: { row: number; column: number };
+      animationTimeOrigin: number;
+      mouseNotReleasedYet: boolean;
+    }
+  | {
+      board: Board;
+      type: "shrink candies";
+      toBeCleared: (row: number, column: number) => boolean;
       animationTimeOrigin: number;
       mouseNotReleasedYet: boolean;
     }
@@ -142,12 +150,11 @@ class GameStateManager {
         this.state.board[row1][column1],
       ];
 
-      const blankedBoard = blankAllMatches(this.state.board);
       this.state = {
-        board: blankedBoard,
+        board: this.state.board,
         mouseNotReleasedYet: this.state.mouseNotReleasedYet,
-        type: "new candies",
-        newCandies: generateNewCandies(blankedBoard),
+        type: "shrink candies",
+        toBeCleared: getToBeBlankedCells(this.state.board),
         animationTimeOrigin,
       };
     } else if (this.state.type === "reject swap") {
@@ -159,17 +166,30 @@ class GameStateManager {
     }
   }
 
+  completeShrink(animationTimeOrigin: number) {
+    if (this.state.type !== "shrink candies") return;
+    const blankedBoard = blankAllMatches(this.state.board);
+    const newCandies = generateNewCandies(blankedBoard);
+
+    this.state = {
+      board: blankedBoard,
+      mouseNotReleasedYet: this.state.mouseNotReleasedYet,
+      type: "new candies",
+      newCandies,
+      animationTimeOrigin,
+    };
+  }
+
   completeFall(animationTimeOrigin: number) {
     if (this.state.type !== "new candies") return;
     const newBoard = fillNewCandies(this.state.board, this.state.newCandies);
 
     if (doesBoardHaveMatches(newBoard)) {
-      const blankedBoard = blankAllMatches(newBoard);
       this.state = {
-        board: blankedBoard,
+        board: newBoard,
         mouseNotReleasedYet: this.state.mouseNotReleasedYet,
-        type: "new candies",
-        newCandies: generateNewCandies(blankedBoard),
+        type: "shrink candies",
+        toBeCleared: getToBeBlankedCells(newBoard),
         animationTimeOrigin,
       };
     } else {

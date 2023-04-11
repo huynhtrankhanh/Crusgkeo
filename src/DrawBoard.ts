@@ -31,7 +31,16 @@ class DrawBoard {
     this.#context.clearRect(0, 0, this.#width, this.#height);
   }
 
-  drawBoard(board: Board, ignoredCells?: { row: number; column: number }[]) {
+  drawBoard(
+    board: Board,
+    specialAction?:
+      | { type: "ignore cells"; cells: { row: number; column: number }[] }
+      | {
+          type: "shrink candies";
+          checkAffected: (row: number, column: number) => boolean;
+          progress: number;
+        }
+  ) {
     this.#clear();
     const {
       drawCircle,
@@ -50,8 +59,8 @@ class DrawBoard {
       () => false
     );
 
-    if (ignoredCells !== undefined) {
-      for (const { row, column } of ignoredCells) {
+    if (specialAction !== undefined && specialAction.type === "ignore cells") {
+      for (const { row, column } of specialAction.cells) {
         testIgnoredCell[row * this.#columnCount + column] = true;
       }
     }
@@ -76,30 +85,35 @@ class DrawBoard {
 
         if (isCellIgnored(row, column)) continue;
 
+        this.#context.save();
+        this.#context.translate(
+          x + this.#cellWidth / 2,
+          y + this.#cellWidth / 2
+        );
+
+        const currentCellAffected =
+          specialAction?.type === "shrink candies" &&
+          specialAction.checkAffected(row, column);
+
+        const zoom = (factor: number) => this.#context.scale(factor, factor);
+
+        if (currentCellAffected) zoom(1 - specialAction.progress);
+
         const candy = board[row][column];
-        if (candy.type === "color bomb")
-          drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+        if (candy.type === "color bomb") drawColorBomb(0, 0);
         else {
-          if (candy.type === "circle")
-            drawCircle(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-          else if (candy.type === "square")
-            drawSquare(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-          else if (candy.type === "diamond")
-            drawDiamond(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+          if (candy.type === "circle") drawCircle(0, 0);
+          else if (candy.type === "square") drawSquare(0, 0);
+          else if (candy.type === "diamond") drawDiamond(0, 0);
 
           if (candy.attribute === "striped horizontal")
-            drawHorizontalStripes(
-              x + this.#cellWidth / 2,
-              y + this.#cellWidth / 2
-            );
+            drawHorizontalStripes(0, 0);
           else if (candy.attribute === "striped vertical")
-            drawVerticalStripes(
-              x + this.#cellWidth / 2,
-              y + this.#cellWidth / 2
-            );
-          else if (candy.attribute === "wrapped")
-            drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+            drawVerticalStripes(0, 0);
+          else if (candy.attribute === "wrapped") drawColorBomb(0, 0);
         }
+
+        this.#context.restore();
       }
   }
 
