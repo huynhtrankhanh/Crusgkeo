@@ -1,4 +1,4 @@
-import { Board, Candy } from "./Board";
+import { Board, BoardWithBlanks, Candy, fillNewCandies } from "./Board";
 import DrawShapes from "./DrawShapes";
 
 class DrawBoard {
@@ -104,8 +104,7 @@ class DrawBoard {
     const { x: x1, y: y1 } = this.#realCoordinates(row1, column1);
     const { x: x2, y: y2 } = this.#realCoordinates(row2, column2);
 
-    const interpolate = (from: number, to: number): number =>
-      from * (1 - animationProgress) + to * animationProgress;
+    const interpolate = this.#interpolate(animationProgress);
 
     this.#drawCandy(
       candy1,
@@ -117,6 +116,11 @@ class DrawBoard {
       interpolate(x2, x1) + this.#cellWidth / 2,
       interpolate(y2, y1) + this.#cellWidth / 2
     );
+  }
+
+  #interpolate(animationProgress: number) {
+    return (from: number, to: number) =>
+      from * (1 - animationProgress) + to * animationProgress;
   }
 
   #realCoordinates(row: number, column: number) {
@@ -152,6 +156,94 @@ class DrawBoard {
         drawVerticalStripes(x, y);
       else if (candy.attribute === "wrapped") drawColorBomb(x, y);
     }
+  }
+
+  drawPartialFall(
+    board: BoardWithBlanks,
+    newCandies: Candy[][],
+    progress: number
+  ) {
+    let counter = 0;
+    const stubbedBoard = board.map((row) =>
+      row.map((x) => (x === null ? null : counter++))
+    );
+    const stubbedNewCandies = newCandies.map((column) =>
+      column.map(() => counter++)
+    );
+    const afterFilling = fillNewCandies(stubbedBoard, stubbedNewCandies);
+
+    const newPositions = Array.from({ length: counter }, () => ({
+      row: 9000,
+      column: 9000,
+    }));
+
+    afterFilling.forEach((values, row) =>
+      values.forEach((id, column) => {
+        newPositions[id] = { row, column };
+      })
+    );
+
+    const oldPositions = Array.from({ length: counter }, () => ({
+      row: 9000,
+      column: 9000,
+    }));
+
+    stubbedBoard.forEach((values, row) =>
+      values.forEach((id, column) => {
+        if (id === null) return;
+        oldPositions[id] = { row, column };
+      })
+    );
+
+    stubbedNewCandies.forEach((values, column) =>
+      values.forEach((id, index) => {
+        oldPositions[id] = { row: -values.length + index, column };
+      })
+    );
+
+    this.#clear();
+
+    // draw the grid that makes up the background
+    for (let row = 0; row < this.#rowCount; row++)
+      for (let column = 0; column < this.#columnCount; column++) {
+        this.#context.strokeStyle = "black";
+        this.#context.lineWidth = 1;
+        const { x, y } = this.#realCoordinates(row, column);
+        this.#context.strokeRect(x, y, this.#cellWidth, this.#cellWidth);
+      }
+
+    this.#context.save();
+    this.#context.beginPath();
+    const { x: topLeftX, y: topLeftY } = this.#realCoordinates(0, 0);
+    this.#context.rect(
+      topLeftX,
+      topLeftY,
+      this.#columnCount * this.#cellWidth,
+      this.#rowCount * this.#cellWidth
+    );
+    this.#context.clip();
+
+    const filledBoard = fillNewCandies(board, newCandies);
+
+    const interpolate = this.#interpolate(progress);
+    for (let i = 0; i < this.#rowCount; i++)
+      for (let j = 0; j < this.#columnCount; j++) {
+        const id = afterFilling[i][j];
+        const candy = filledBoard[i][j];
+        const { row: oldRow, column: oldColumn } = oldPositions[id];
+        const { row: newRow, column: newColumn } = newPositions[id];
+        const { x, y } = this.#realCoordinates(
+          interpolate(oldRow, newRow),
+          interpolate(oldColumn, newColumn)
+        );
+        this.#drawCandy(
+          candy,
+          x + this.#cellWidth / 2,
+          y + this.#cellWidth / 2
+        );
+      }
+
+    this.#context.restore();
   }
 }
 

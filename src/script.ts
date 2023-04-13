@@ -108,7 +108,15 @@ requestAnimationFrame(function animate(time) {
       });
     }
   } else if (state.state.type === "new candies") {
-    state.completeFall(time);
+    const animationDuration = 300;
+    const progress =
+      (time - state.state.animationTimeOrigin) / animationDuration;
+    if (progress >= 1) {
+      state.completeFall(time);
+    } else {
+      const { board, newCandies } = state.state;
+      drawBoard.drawPartialFall(board, newCandies, progress);
+    }
   } else {
     const { board } = state.state;
     drawBoard.drawBoard(board);
