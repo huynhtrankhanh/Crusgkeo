@@ -27,16 +27,3 @@ jobs:
       uses: creyD/prettier_action@v4.3
       with:
         prettier_options: '--write .'
-
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: 'Auto-format code with Prettier'
-        commit_user_name: 'GitHub Actions'
-        commit_user_email: 'actions@github.com'
-
-    - name: Push changes
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
