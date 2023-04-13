@@ -119,7 +119,7 @@ class DrawBoard {
     );
   }
 
-  #realCoordinates(column: number, row: number) {
+  #realCoordinates(row: number, column: number) {
     const centerX = this.#width / 2;
     const centerY = this.#height / 2;
     const topLeftX = centerX - (this.#cellWidth * this.#columnCount) / 2;
