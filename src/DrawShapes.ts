@@ -9,7 +9,14 @@ class DrawShapes {
     this.#context.lineWidth = 1;
     this.#context.strokeStyle = "black";
     this.#context.beginPath();
-    this.#context.arc(centerX, centerY, this.#shapeSize / 2, 0, 2 * Math.PI, false);
+    this.#context.arc(
+      centerX,
+      centerY,
+      this.#shapeSize / 2,
+      0,
+      2 * Math.PI,
+      false
+    );
     this.#context.stroke();
   };
 
@@ -43,7 +50,7 @@ class DrawShapes {
 
     const rayCount = 10;
     for (let i = 0; i < rayCount; i++) {
-      const radius = this.#shapeSize / 2 * 1.1;
+      const radius = (this.#shapeSize / 2) * 1.1;
 
       this.#context.moveTo(0, (2 * radius) / 3);
       this.#context.lineTo(0, radius);

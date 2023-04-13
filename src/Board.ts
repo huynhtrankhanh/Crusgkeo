@@ -137,5 +137,4 @@ export const getToBeBlankedCells = (board: Board) => {
       }
     }
   return check;
-}
-
+};
