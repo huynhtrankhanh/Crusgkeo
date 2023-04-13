@@ -123,7 +123,7 @@ class DrawBoard {
     const topLeftX = centerX - (this.#cellWidth * this.#columnCount) / 2;
     const topLeftY = centerY - (this.#cellWidth * this.#rowCount) / 2;
     this.#context.lineWidth = 3;
-    this.#context.strokeStyle = "red";
+    this.#context.strokeStyle = "black";
     this.#context.strokeRect(
       topLeftX + column * this.#cellWidth,
       topLeftY + row * this.#cellWidth,
