@@ -42,9 +42,6 @@ class DrawBoard {
         }
   ) {
     this.#clear();
-    const centerX = this.#width / 2;
-    const centerY = this.#height / 2;
-
     const testIgnoredCell = Array.from(
       { length: this.#rowCount * this.#columnCount },
       () => false
@@ -64,14 +61,7 @@ class DrawBoard {
       for (let column = 0; column < this.#columnCount; column++) {
         this.#context.lineWidth = 1;
         this.#context.strokeStyle = "black";
-        const x =
-          centerX -
-          (this.#cellWidth * this.#columnCount) / 2 +
-          column * this.#cellWidth;
-        const y =
-          centerY -
-          (this.#cellWidth * this.#rowCount) / 2 +
-          row * this.#cellWidth;
+        const { x, y } = this.#realCoordinates(row, column);
         this.#context.strokeRect(x, y, this.#cellWidth, this.#cellWidth);
 
         if (isCellIgnored(row, column)) continue;
@@ -98,18 +88,10 @@ class DrawBoard {
   }
 
   highlightCell(row: number, column: number) {
-    const centerX = this.#width / 2;
-    const centerY = this.#height / 2;
-    const topLeftX = centerX - (this.#cellWidth * this.#columnCount) / 2;
-    const topLeftY = centerY - (this.#cellWidth * this.#rowCount) / 2;
+    const { x, y } = this.#realCoordinates(row, column);
     this.#context.lineWidth = 3;
     this.#context.strokeStyle = "black";
-    this.#context.strokeRect(
-      topLeftX + column * this.#cellWidth,
-      topLeftY + row * this.#cellWidth,
-      this.#cellWidth,
-      this.#cellWidth
-    );
+    this.#context.strokeRect(x, y, this.#cellWidth, this.#cellWidth);
   }
 
   displayPartialSwap(
@@ -119,29 +101,34 @@ class DrawBoard {
     { row: row2, column: column2 }: { row: number; column: number },
     animationProgress: number
   ) {
-    const realCoordinates = (
-      row: number,
-      column: number
-    ): { x: number; y: number } => {
-      const centerX = this.#width / 2;
-      const centerY = this.#height / 2;
-      const topLeftX = centerX - (this.#cellWidth * this.#columnCount) / 2;
-      const topLeftY = centerY - (this.#cellWidth * this.#rowCount) / 2;
-
-      return {
-        x: topLeftX + column * this.#cellWidth,
-        y: topLeftY + row * this.#cellWidth,
-      };
-    };
-
-    const { x: x1, y: y1 } = realCoordinates(row1, column1);
-    const { x: x2, y: y2 } = realCoordinates(row2, column2);
+    const { x: x1, y: y1 } = this.#realCoordinates(row1, column1);
+    const { x: x2, y: y2 } = this.#realCoordinates(row2, column2);
 
     const interpolate = (from: number, to: number): number =>
       from * (1 - animationProgress) + to * animationProgress;
 
-    this.#drawCandy(candy1, interpolate(x1, x2), interpolate(y1, y2));
-    this.#drawCandy(candy2, interpolate(x2, x1), interpolate(y2, y1));
+    this.#drawCandy(
+      candy1,
+      interpolate(x1, x2) + this.#cellWidth / 2,
+      interpolate(y1, y2) + this.#cellWidth / 2
+    );
+    this.#drawCandy(
+      candy2,
+      interpolate(x2, x1) + this.#cellWidth / 2,
+      interpolate(y2, y1) + this.#cellWidth / 2
+    );
+  }
+
+  #realCoordinates(column: number, row: number) {
+    const centerX = this.#width / 2;
+    const centerY = this.#height / 2;
+    const topLeftX = centerX - (this.#cellWidth * this.#columnCount) / 2;
+    const topLeftY = centerY - (this.#cellWidth * this.#rowCount) / 2;
+
+    return {
+      x: topLeftX + column * this.#cellWidth,
+      y: topLeftY + row * this.#cellWidth,
+    };
   }
 
   #drawCandy(candy: Candy, x: number, y: number) {
@@ -154,22 +141,16 @@ class DrawBoard {
       drawHorizontalStripes,
     } = new DrawShapes(this.#context, this.#shapeSize);
 
-    if (candy.type === "color bomb")
-      drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+    if (candy.type === "color bomb") drawColorBomb(x, y);
     else {
-      if (candy.type === "circle")
-        drawCircle(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-      else if (candy.type === "square")
-        drawSquare(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-      else if (candy.type === "diamond")
-        drawDiamond(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+      if (candy.type === "circle") drawCircle(x, y);
+      else if (candy.type === "square") drawSquare(x, y);
+      else if (candy.type === "diamond") drawDiamond(x, y);
 
-      if (candy.attribute === "striped horizontal")
-        drawHorizontalStripes(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+      if (candy.attribute === "striped horizontal") drawHorizontalStripes(x, y);
       else if (candy.attribute === "striped vertical")
-        drawVerticalStripes(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-      else if (candy.attribute === "wrapped")
-        drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+        drawVerticalStripes(x, y);
+      else if (candy.attribute === "wrapped") drawColorBomb(x, y);
     }
   }
 }
