@@ -42,15 +42,6 @@ class DrawBoard {
         }
   ) {
     this.#clear();
-    const {
-      drawCircle,
-      drawSquare,
-      drawDiamond,
-      drawColorBomb,
-      drawVerticalStripes,
-      drawHorizontalStripes,
-    } = new DrawShapes(this.#context, this.#shapeSize);
-
     const centerX = this.#width / 2;
     const centerY = this.#height / 2;
 
@@ -100,18 +91,7 @@ class DrawBoard {
         if (currentCellAffected) zoom(1 - specialAction.progress);
 
         const candy = board[row][column];
-        if (candy.type === "color bomb") drawColorBomb(0, 0);
-        else {
-          if (candy.type === "circle") drawCircle(0, 0);
-          else if (candy.type === "square") drawSquare(0, 0);
-          else if (candy.type === "diamond") drawDiamond(0, 0);
-
-          if (candy.attribute === "striped horizontal")
-            drawHorizontalStripes(0, 0);
-          else if (candy.attribute === "striped vertical")
-            drawVerticalStripes(0, 0);
-          else if (candy.attribute === "wrapped") drawColorBomb(0, 0);
-        }
+        this.#drawCandy(candy, 0, 0);
 
         this.#context.restore();
       }
@@ -160,6 +140,11 @@ class DrawBoard {
     const interpolate = (from: number, to: number): number =>
       from * (1 - animationProgress) + to * animationProgress;
 
+    this.#drawCandy(candy1, interpolate(x1, x2), interpolate(y1, y2));
+    this.#drawCandy(candy2, interpolate(x2, x1), interpolate(y2, y1));
+  }
+
+  #drawCandy(candy: Candy, x: number, y: number) {
     const {
       drawCircle,
       drawSquare,
@@ -169,31 +154,23 @@ class DrawBoard {
       drawHorizontalStripes,
     } = new DrawShapes(this.#context, this.#shapeSize);
 
-    const drawCandy = (candy: Candy, x: number, y: number) => {
-      if (candy.type === "color bomb")
+    if (candy.type === "color bomb")
+      drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+    else {
+      if (candy.type === "circle")
+        drawCircle(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+      else if (candy.type === "square")
+        drawSquare(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+      else if (candy.type === "diamond")
+        drawDiamond(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+
+      if (candy.attribute === "striped horizontal")
+        drawHorizontalStripes(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+      else if (candy.attribute === "striped vertical")
+        drawVerticalStripes(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
+      else if (candy.attribute === "wrapped")
         drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-      else {
-        if (candy.type === "circle")
-          drawCircle(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-        else if (candy.type === "square")
-          drawSquare(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-        else if (candy.type === "diamond")
-          drawDiamond(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-
-        if (candy.attribute === "striped horizontal")
-          drawHorizontalStripes(
-            x + this.#cellWidth / 2,
-            y + this.#cellWidth / 2
-          );
-        else if (candy.attribute === "striped vertical")
-          drawVerticalStripes(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-        else if (candy.attribute === "wrapped")
-          drawColorBomb(x + this.#cellWidth / 2, y + this.#cellWidth / 2);
-      }
-    };
-
-    drawCandy(candy1, interpolate(x1, x2), interpolate(y1, y2));
-    drawCandy(candy2, interpolate(x2, x1), interpolate(y2, y1));
+    }
   }
 }
 
