@@ -108,7 +108,7 @@ requestAnimationFrame(function animate(time) {
       });
     }
   } else if (state.state.type === "new candies") {
-    const animationDuration = 300;
+    const animationDuration = 100;
     const progress =
       (time - state.state.animationTimeOrigin) / animationDuration;
     if (progress >= 1) {
