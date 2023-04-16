@@ -22,7 +22,7 @@ class DrawShapes {
 
   drawSquare = (centerX: number, centerY: number) => {
     this.#context.lineWidth = 1;
-    this.#context.strokeStyle = "black";
+    this.#context.strokeStyle = "red";
     const x = centerX - this.#shapeSize / 2;
     const y = centerY - this.#shapeSize / 2;
     this.#context.beginPath();
