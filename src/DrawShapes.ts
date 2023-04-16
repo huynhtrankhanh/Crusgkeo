@@ -18,6 +18,12 @@ class DrawShapes {
       false
     );
     this.#context.stroke();
+    
+    // //Candy Circle Texture import
+    // const img = new Image();
+    // img.src = "CircleCandy.svg";
+    // this.#context.createPattern(img,"repeat");
+
   };
 
   drawSquare = (centerX: number, centerY: number) => {
@@ -28,6 +34,12 @@ class DrawShapes {
     this.#context.beginPath();
     this.#context.strokeRect(x, y, this.#shapeSize, this.#shapeSize);
     this.#context.stroke();
+    
+    // //Candy Square Texture import
+    // const img = new Image();
+    // img.src = "SquareCandy.svg";
+    // this.#context.createPattern(img,"repeat");
+
   };
 
   drawDiamond = (centerX: number, centerY: number) => {
@@ -40,6 +52,12 @@ class DrawShapes {
     this.#context.lineTo(centerX - this.#shapeSize / 2, centerY);
     this.#context.lineTo(centerX, centerY - this.#shapeSize / 2);
     this.#context.stroke();
+
+    // //Candy Diamond Texture import
+    // const img = new Image();
+    // img.src = "DiamondCandy.svg";
+    // this.#context.createPattern(img,"repeat");
+
   };
 
   drawColorBomb = (centerX: number, centerY: number) => {
