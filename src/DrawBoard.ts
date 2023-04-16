@@ -30,7 +30,12 @@ class DrawBoard {
   #clear() {
     this.#context.clearRect(0, 0, this.#width, this.#height);
   }
-
+  /*
+  const img = new Image();
+  img.src = "BoardTexture.svg";
+  #context.createPattern(img,"repeat");
+  //temporary place for the board's background
+  */
   drawBoard(
     board: Board,
     specialAction?:
