@@ -3,7 +3,7 @@ import DrawBoard from "./DrawBoard";
 import GameStateManager from "./GameState";
 import MousePosition from "./MousePosition";
 import { waitForAllImages } from "./textures";
-
+(async ()=>{
 await waitForAllImages;
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -128,5 +128,5 @@ requestAnimationFrame(function animate(time) {
 
   if (cell !== null) drawBoard.highlightCell(cell.row, cell.column);
 });
-
+})();
 export {};
