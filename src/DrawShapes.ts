@@ -1,3 +1,4 @@
+import { circleCandy, diamondCandy, squareCandy } from "./textures";
 class DrawShapes {
   #shapeSize: number;
   #context: CanvasRenderingContext2D;
@@ -6,55 +7,21 @@ class DrawShapes {
     this.#shapeSize = shapeSize;
   }
   drawCircle = (centerX: number, centerY: number) => {
-    this.#context.lineWidth = 1;
-    this.#context.strokeStyle = "black";
-    this.#context.beginPath();
-    this.#context.arc(
-      centerX,
-      centerY,
-      this.#shapeSize / 2,
-      0,
-      2 * Math.PI,
-      false
-    );
-    this.#context.stroke();
-
-    // //Candy Circle Texture import
-    // const img = new Image();
-    // img.src = "CircleCandy.svg";
-    // this.#context.createPattern(img,"repeat");
+    const x = centerX - this.#shapeSize / 2;
+    const y = centerY - this.#shapeSize / 2;
+     this.#context.drawImage(circleCandy,x, y, this.#shapeSize, this.#shapeSize);
   };
 
   drawSquare = (centerX: number, centerY: number) => {
-    this.#context.lineWidth = 1;
-    this.#context.strokeStyle = "black";
     const x = centerX - this.#shapeSize / 2;
     const y = centerY - this.#shapeSize / 2;
-    this.#context.beginPath();
-    this.#context.strokeRect(x, y, this.#shapeSize, this.#shapeSize);
-    this.#context.stroke();
-
-    // //Candy Square Texture import
-    // const img = new Image();
-    // img.src = "SquareCandy.svg";
-    // this.#context.createPattern(img,"repeat");
+    this.#context.drawImage(squareCandy,x, y, this.#shapeSize, this.#shapeSize)
   };
 
   drawDiamond = (centerX: number, centerY: number) => {
-    this.#context.lineWidth = 1;
-    this.#context.strokeStyle = "black";
-    this.#context.beginPath();
-    this.#context.moveTo(centerX, centerY - this.#shapeSize / 2);
-    this.#context.lineTo(centerX + this.#shapeSize / 2, centerY);
-    this.#context.lineTo(centerX, centerY + this.#shapeSize / 2);
-    this.#context.lineTo(centerX - this.#shapeSize / 2, centerY);
-    this.#context.lineTo(centerX, centerY - this.#shapeSize / 2);
-    this.#context.stroke();
-
-    // //Candy Diamond Texture import
-    // const img = new Image();
-    // img.src = "DiamondCandy.svg";
-    // this.#context.createPattern(img,"repeat");
+    const x = centerX - this.#shapeSize / 2;
+    const y = centerY - this.#shapeSize / 2;
+    this.#context.drawImage(diamondCandy,x, y, this.#shapeSize, this.#shapeSize)
   };
 
   drawColorBomb = (centerX: number, centerY: number) => {

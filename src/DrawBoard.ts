@@ -1,5 +1,6 @@
 import { Board, BoardWithBlanks, Candy, fillNewCandies } from "./Board";
 import DrawShapes from "./DrawShapes";
+import { boardTexture } from "./textures";
 
 class DrawBoard {
   #width: number;
@@ -30,12 +31,6 @@ class DrawBoard {
   #clear() {
     this.#context.clearRect(0, 0, this.#width, this.#height);
   }
-  /*
-  const img = new Image();
-  img.src = "BoardTexture.svg";
-  #context.createPattern(img,"repeat");
-  //temporary place for the board's background
-  */
   drawBoard(
     board: Board,
     specialAction?:
@@ -47,6 +42,10 @@ class DrawBoard {
         }
   ) {
     this.#clear();
+
+    const {x: topLeftX, y: topLeftY} = this.#realCoordinates(0, 0);
+    this.#context.drawImage(boardTexture, topLeftX, topLeftY, this.#columnCount * this.#cellWidth, this.#rowCount * this.#cellWidth)
+
     const testIgnoredCell = Array.from(
       { length: this.#rowCount * this.#columnCount },
       () => false
@@ -208,6 +207,10 @@ class DrawBoard {
 
     this.#clear();
 
+    const {x: topLeftX, y: topLeftY} = this.#realCoordinates(0, 0);
+    this.#context.drawImage(boardTexture, topLeftX, topLeftY, this.#columnCount * this.#cellWidth, this.#rowCount * this.#cellWidth)
+
+
     // draw the grid that makes up the background
     for (let row = 0; row < this.#rowCount; row++)
       for (let column = 0; column < this.#columnCount; column++) {
@@ -219,7 +222,6 @@ class DrawBoard {
 
     this.#context.save();
     this.#context.beginPath();
-    const { x: topLeftX, y: topLeftY } = this.#realCoordinates(0, 0);
     this.#context.rect(
       topLeftX,
       topLeftY,

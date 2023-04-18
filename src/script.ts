@@ -2,6 +2,9 @@ import DetectCell from "./DetectCell";
 import DrawBoard from "./DrawBoard";
 import GameStateManager from "./GameState";
 import MousePosition from "./MousePosition";
+import { waitForAllImages } from "./textures";
+
+await waitForAllImages;
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
@@ -26,6 +29,8 @@ const rowCount = 3;
 const columnCount = 8;
 
 const state = new GameStateManager(rowCount, columnCount);
+
+
 
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
@@ -109,10 +114,6 @@ requestAnimationFrame(function animate(time) {
       });
     }
   } else if (state.state.type === "new candies") {
-<<<<<<< HEAD
-    //PTQ job
-    state.completeFall(time);
-=======
     const animationDuration = 100;
     const progress =
       (time - state.state.animationTimeOrigin) / animationDuration;
@@ -122,7 +123,6 @@ requestAnimationFrame(function animate(time) {
       const { board, newCandies } = state.state;
       drawBoard.drawPartialFall(board, newCandies, progress);
     }
->>>>>>> 1d0aff884e54a471de88e3588c8ffe8c9fb3e2c2
   } else {
     const { board } = state.state;
     drawBoard.drawBoard(board);
