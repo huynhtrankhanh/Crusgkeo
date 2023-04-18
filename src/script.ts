@@ -108,6 +108,7 @@ requestAnimationFrame(function animate(time) {
       });
     }
   } else if (state.state.type === "new candies") {
+    //PTQ job
     state.completeFall(time);
   } else {
     const { board } = state.state;
