@@ -1,4 +1,4 @@
-import boardTexturePNG from "../Textures/boardTexture.png";
+import boardTexturePNG from "../Textures/BoardTexture.png";
 import circleCandyPNG from "../Textures/CircleCandy.png";
 import squareCandyPNG from "../Textures/SquareCandy.png";
 import diamondCandyPNG from "../Textures/DiamondCandy.png";
