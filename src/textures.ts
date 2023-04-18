@@ -1,7 +1,7 @@
-import boardTexturePNG from ;
-import circleCandyPNG from ;
-import squareCandyPNG from ;
-import diamondCandyPNG from ;
+import boardTexturePNG from "../Textures/boardTexture.png";
+import circleCandyPNG from "../Textures/CircleCandy.png";
+import squareCandyPNG from "../Textures/SquareCandy.png";
+import diamondCandyPNG from "../Textures/DiamondCandy.png";
 
 const makeImageObject = (png: string) => {
   const image = new Image();
