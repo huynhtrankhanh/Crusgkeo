@@ -30,8 +30,9 @@ const state = new GameStateManager(rowCount, columnCount);
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
 
-  const cellWidth = Math.trunc(
-    Math.min((width - 20) / columnCount, (height - 20) / rowCount)
+  const cellWidth = Math.min(
+    Math.trunc(Math.min((width - 20) / columnCount, (height - 20) / rowCount)),
+    64
   );
   const shapeSize = Math.trunc(cellWidth * 0.85);
 
@@ -108,8 +109,20 @@ requestAnimationFrame(function animate(time) {
       });
     }
   } else if (state.state.type === "new candies") {
+<<<<<<< HEAD
     //PTQ job
     state.completeFall(time);
+=======
+    const animationDuration = 100;
+    const progress =
+      (time - state.state.animationTimeOrigin) / animationDuration;
+    if (progress >= 1) {
+      state.completeFall(time);
+    } else {
+      const { board, newCandies } = state.state;
+      drawBoard.drawPartialFall(board, newCandies, progress);
+    }
+>>>>>>> 1d0aff884e54a471de88e3588c8ffe8c9fb3e2c2
   } else {
     const { board } = state.state;
     drawBoard.drawBoard(board);

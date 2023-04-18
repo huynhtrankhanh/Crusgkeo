@@ -89,14 +89,14 @@ export const generateNewCandies = (board: BoardWithBlanks): Candy[][] =>
       })
     );
 
-export const fillNewCandies = (
-  board: BoardWithBlanks,
-  newCandies: Candy[][]
-): Board =>
+export const fillNewCandies = <T>(
+  board: (T | null)[][],
+  newCandies: T[][]
+): T[][] =>
   transpose(
     transpose(board).map((row, i) => [
       ...newCandies[i],
-      ...(row.filter((x) => x !== null) as Candy[]),
+      ...(row.filter((x) => x !== null) as T[]),
     ])
   );
 
