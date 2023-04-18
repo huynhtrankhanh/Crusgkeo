@@ -9,19 +9,37 @@ class DrawShapes {
   drawCircle = (centerX: number, centerY: number) => {
     const x = centerX - this.#shapeSize / 2;
     const y = centerY - this.#shapeSize / 2;
-     this.#context.drawImage(circleCandy,x, y, this.#shapeSize, this.#shapeSize);
+    this.#context.drawImage(
+      circleCandy,
+      x,
+      y,
+      this.#shapeSize,
+      this.#shapeSize
+    );
   };
 
   drawSquare = (centerX: number, centerY: number) => {
     const x = centerX - this.#shapeSize / 2;
     const y = centerY - this.#shapeSize / 2;
-    this.#context.drawImage(squareCandy,x, y, this.#shapeSize, this.#shapeSize)
+    this.#context.drawImage(
+      squareCandy,
+      x,
+      y,
+      this.#shapeSize,
+      this.#shapeSize
+    );
   };
 
   drawDiamond = (centerX: number, centerY: number) => {
     const x = centerX - this.#shapeSize / 2;
     const y = centerY - this.#shapeSize / 2;
-    this.#context.drawImage(diamondCandy,x, y, this.#shapeSize, this.#shapeSize)
+    this.#context.drawImage(
+      diamondCandy,
+      x,
+      y,
+      this.#shapeSize,
+      this.#shapeSize
+    );
   };
 
   drawColorBomb = (centerX: number, centerY: number) => {

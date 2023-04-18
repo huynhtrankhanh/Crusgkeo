@@ -43,8 +43,14 @@ class DrawBoard {
   ) {
     this.#clear();
 
-    const {x: topLeftX, y: topLeftY} = this.#realCoordinates(0, 0);
-    this.#context.drawImage(boardTexture, topLeftX, topLeftY, this.#columnCount * this.#cellWidth, this.#rowCount * this.#cellWidth)
+    const { x: topLeftX, y: topLeftY } = this.#realCoordinates(0, 0);
+    this.#context.drawImage(
+      boardTexture,
+      topLeftX,
+      topLeftY,
+      this.#columnCount * this.#cellWidth,
+      this.#rowCount * this.#cellWidth
+    );
 
     const testIgnoredCell = Array.from(
       { length: this.#rowCount * this.#columnCount },
@@ -207,9 +213,14 @@ class DrawBoard {
 
     this.#clear();
 
-    const {x: topLeftX, y: topLeftY} = this.#realCoordinates(0, 0);
-    this.#context.drawImage(boardTexture, topLeftX, topLeftY, this.#columnCount * this.#cellWidth, this.#rowCount * this.#cellWidth)
-
+    const { x: topLeftX, y: topLeftY } = this.#realCoordinates(0, 0);
+    this.#context.drawImage(
+      boardTexture,
+      topLeftX,
+      topLeftY,
+      this.#columnCount * this.#cellWidth,
+      this.#rowCount * this.#cellWidth
+    );
 
     // draw the grid that makes up the background
     for (let row = 0; row < this.#rowCount; row++)

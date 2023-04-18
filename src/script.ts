@@ -30,8 +30,6 @@ const columnCount = 8;
 
 const state = new GameStateManager(rowCount, columnCount);
 
-
-
 requestAnimationFrame(function animate(time) {
   requestAnimationFrame(animate);
 

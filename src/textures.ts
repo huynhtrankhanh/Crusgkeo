@@ -14,8 +14,11 @@ export const circleCandy = makeImageObject(circleCandyURL);
 export const squareCandy = makeImageObject(squareCandyURL);
 export const diamondCandy = makeImageObject(diamondCandyURL);
 
-const waitOnLoad = (image: HTMLImageElement) => new Promise(resolve => {
-  image.onload = resolve;
-})
+const waitOnLoad = (image: HTMLImageElement) =>
+  new Promise((resolve) => {
+    image.onload = resolve;
+  });
 
-export const waitForAllImages = Promise.all([boardTexture, circleCandy, squareCandy, diamondCandy].map(waitOnLoad))
+export const waitForAllImages = Promise.all(
+  [boardTexture, circleCandy, squareCandy, diamondCandy].map(waitOnLoad)
+);
