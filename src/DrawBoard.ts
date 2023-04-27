@@ -263,6 +263,18 @@ class DrawBoard {
 
     this.#context.restore();
   }
+  displayScore(score: number) {
+    this.#context.save();
+    const context = this.#context;
+    context.font = '30px "Lobster Two"';
+    context.fillStyle = "black";
+    const text = "Score: " + score;
+    const metrics = context.measureText(text);
+    const height = metrics.actualBoundingBoxAscent;
+    const { x, y } = this.#realCoordinates(0, 0);
+    context.fillText(text, x, y - height);
+    this.#context.restore();
+  }
 }
 
 export default DrawBoard;

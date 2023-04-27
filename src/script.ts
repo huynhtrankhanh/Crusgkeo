@@ -197,6 +197,8 @@ import { waitForAllImages } from "./textures";
         const { board } = state.state;
         drawBoard.drawBoard(board);
       }
+
+      drawBoard.displayScore(state.state.score);
     };
 
     if (
