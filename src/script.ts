@@ -84,12 +84,12 @@ import { waitForAllImages } from "./textures";
         );
       };
 
-{
-const text="Candy Crush Clone";
-const metrics = context.measureText(text);
-if(metrics.width >= width)context.font='bold 48px "Lobster Two"';
-      drawText("Candy Crush Clone", width / 2, height / 2);
-}
+      {
+        const text = "Candy Crush Clone";
+        const metrics = context.measureText(text);
+        if (metrics.width >= width) context.font = 'bold 48px "Lobster Two"';
+        drawText("Candy Crush Clone", width / 2, height / 2);
+      }
       context.font = '30px "Lobster Two"';
       context.fillStyle = "black";
       drawText("tap anywhere to play", width / 2, height / 2 + 30);
