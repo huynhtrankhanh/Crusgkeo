@@ -30,6 +30,14 @@ import { waitForAllImages } from "./textures";
 
   const state = new GameStateManager(rowCount, columnCount);
 
+  canvas.addEventListener("click", (event) => {
+    if (state.state.type === "start screen") {
+      state.fadeStartScreen(event.timeStamp);
+    } else if (state.state.type === "result screen") {
+      state.fadeResult(event.timeStamp);
+    }
+  });
+
   requestAnimationFrame(function animate(time) {
     requestAnimationFrame(animate);
 
@@ -61,6 +69,51 @@ import { waitForAllImages } from "./textures";
 
     const cell = detectCell.detect(mousePosition.x, mousePosition.y);
 
+    const drawStartScreen = () => {
+      context.save();
+      context.clearRect(0, 0, width, height);
+      context.fillStyle = "red";
+      context.font = 'bold 56px "Lobster Two"';
+
+      const drawText = (text: string, centerX: number, centerY: number) => {
+        const metrics = context.measureText(text);
+        context.fillText(
+          text,
+          centerX - metrics.width / 2,
+          centerY - metrics.actualBoundingBoxAscent / 2
+        );
+      };
+
+      drawText("Candy Crush Clone", width / 2, height / 2);
+      context.font = '30px "Lobster Two"';
+      context.fillStyle = "black";
+      drawText("tap anywhere to play", width / 2, height / 2 + 30);
+      context.restore();
+    };
+
+    if (state.state.type === "start screen") {
+      drawStartScreen();
+      return;
+    } else if (state.state.type === "start screen fades away") {
+      const origin = state.state.animationTimeOrigin;
+      const duration = 1000;
+      const progress = (time - origin) / duration;
+
+      if (progress >= 1) {
+        state.displayGame(time);
+      } else {
+        context.save();
+        context.globalAlpha = 1 - progress;
+        drawStartScreen();
+        context.restore();
+      }
+      return;
+    } else if (state.state.type === "result screen") {
+      return;
+    } else if (state.state.type === "result screen fades away") {
+      return;
+    }
+
     if (mousePosition.leftButtonHeld) {
       if (cell === null) {
         state.holdOutsideBoard();
@@ -71,61 +124,98 @@ import { waitForAllImages } from "./textures";
       state.releaseMouse();
     }
 
-    if (
-      state.state.type === "animate swap" ||
-      state.state.type === "reject swap"
-    ) {
-      const { heldCell, swappedWith, board } = state.state;
-      drawBoard.drawBoard(board, {
-        type: "ignore cells",
-        cells: [heldCell, swappedWith],
-      });
-      const { animationTimeOrigin } = state.state;
+    const drawGame = (time: number, suspend: boolean) => {
+      if (
+        state.state.type === "start screen" ||
+        state.state.type === "start screen fades away" ||
+        state.state.type === "result screen" ||
+        state.state.type === "result screen fades away"
+      )
+        return;
 
-      const animationDuration = state.state.type === "reject swap" ? 300 : 100;
-      const progress = (time - animationTimeOrigin) / animationDuration;
-      if (progress >= 1) {
-        state.completeSwap(time);
-        drawBoard.drawBoard(board);
-      } else {
-        drawBoard.displayPartialSwap(
-          board[heldCell.row][heldCell.column],
-          board[swappedWith.row][swappedWith.column],
-          heldCell,
-          swappedWith,
-          state.state.type === "animate swap"
-            ? progress
-            : progress <= 0.5
-            ? 2 * progress
-            : 2 - 2 * progress
-        );
-      }
-    } else if (state.state.type === "shrink candies") {
-      const animationDuration = 100;
-      const progress =
-        (time - state.state.animationTimeOrigin) / animationDuration;
-      if (progress >= 1) {
-        state.completeShrink(time);
-      } else {
-        drawBoard.drawBoard(state.state.board, {
-          type: "shrink candies",
-          checkAffected: state.state.toBeCleared,
-          progress,
+      if (
+        state.state.type === "animate swap" ||
+        state.state.type === "reject swap"
+      ) {
+        const { heldCell, swappedWith, board } = state.state;
+        drawBoard.drawBoard(board, {
+          type: "ignore cells",
+          cells: [heldCell, swappedWith],
         });
-      }
-    } else if (state.state.type === "new candies") {
-      const animationDuration = 100;
-      const progress =
-        (time - state.state.animationTimeOrigin) / animationDuration;
-      if (progress >= 1) {
-        state.completeFall(time);
+        const { animationTimeOrigin } = state.state;
+
+        const animationDuration =
+          state.state.type === "reject swap" ? 300 : 100;
+        const progress = Math.min(
+          (time - animationTimeOrigin) / animationDuration,
+          1
+        );
+        if (progress >= 1 && !suspend) {
+          state.completeSwap(time);
+          drawBoard.drawBoard(board);
+        } else {
+          drawBoard.displayPartialSwap(
+            board[heldCell.row][heldCell.column],
+            board[swappedWith.row][swappedWith.column],
+            heldCell,
+            swappedWith,
+            state.state.type === "animate swap"
+              ? progress
+              : progress <= 0.5
+              ? 2 * progress
+              : 2 - 2 * progress
+          );
+        }
+      } else if (state.state.type === "shrink candies") {
+        const animationDuration = 100;
+        const progress = Math.min(
+          (time - state.state.animationTimeOrigin) / animationDuration,
+          1
+        );
+        if (progress >= 1 && !suspend) {
+          state.completeShrink(time);
+        } else {
+          drawBoard.drawBoard(state.state.board, {
+            type: "shrink candies",
+            checkAffected: state.state.toBeCleared,
+            progress,
+          });
+        }
+      } else if (state.state.type === "new candies") {
+        const animationDuration = 100;
+        const progress = Math.min(
+          (time - state.state.animationTimeOrigin) / animationDuration,
+          1
+        );
+        if (progress >= 1 && !suspend) {
+          state.completeFall(time);
+        } else {
+          const { board, newCandies } = state.state;
+          drawBoard.drawPartialFall(board, newCandies, progress);
+        }
       } else {
-        const { board, newCandies } = state.state;
-        drawBoard.drawPartialFall(board, newCandies, progress);
+        const { board } = state.state;
+        drawBoard.drawBoard(board);
       }
+    };
+
+    if (
+      state.state.type === "cell held" ||
+      state.state.fadeStatus.type === "no"
+    ) {
+      drawGame(time, false);
     } else {
-      const { board } = state.state;
-      drawBoard.drawBoard(board);
+      context.save();
+      const duration = 1000;
+      const progress = (time - state.state.fadeStatus.startFadingAt) / duration;
+      if (progress >= 1) {
+        state.showResult();
+      } else {
+        context.clearRect(0, 0, width, height);
+        context.globalAlpha = 1 - progress;
+        drawGame(state.state.fadeStatus.startFadingAt, true);
+      }
+      context.restore();
     }
 
     if (cell !== null) drawBoard.highlightCell(cell.row, cell.column);
