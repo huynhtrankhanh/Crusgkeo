@@ -1,4 +1,4 @@
-import DetectCell from "./DetectCell";
+import {DetectCellBuilder} from "./DetectCell";
 import DrawBoard from "./DrawBoard";
 import GameStateManager from "./GameState";
 import MousePosition from "./MousePosition";
