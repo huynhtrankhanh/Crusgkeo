@@ -33,72 +33,28 @@ The game is built using Vite, a fast and lightweight build tool. To run the serv
 ## Class Diagram
 
 ```mermaid
-classDiagram
-  class GameFadeStatus {
-    type: string
-    startFadingAt: number
-  }
+graph LR
+  GameState --> StartScreen
+  GameState --> InGame
+  GameState --> ResultScreen
+  InGame --> Nothing
+  InGame --> CellHeld
+  InGame --> AnimateSwap
+  InGame --> RejectSwap
+  InGame --> ShrinkCandies
+  InGame --> NewCandies
 
-  class Board {}
+  classDef classStyle fill:#ffffff,stroke:#000000,stroke-width:2px;
+  class GameState,StartScreen,InGame,ResultScreen,Nothing,CellHeld,AnimateSwap,RejectSwap,ShrinkCandies,NewCandies classStyle
 
-  class InGame {
-    board: Board
-    type: string
-    mouseNotReleasedYet: boolean
-    fadeStatus: GameFadeStatus
-  }
-
-  class Nothing {
-    type: "nothing"
-  }
-
-  class CellHeld {
-    type: "cell held"
-    heldCell: { row: number; column: number }
-  }
-
-  class AnimateSwap {
-    type: "animate swap" | "reject swap"
-    heldCell: { row: number; column: number }
-    swappedWith: { row: number; column: number }
-    animationTimeOrigin: number
-  }
-
-  class ShrinkCandies {
-    type: "shrink candies"
-    toBeCleared: (row: number, column: number) => boolean
-    animationTimeOrigin: number
-  }
-
-  class NewCandies {
-    type: "new candies"
-    newCandies: Candy[][]
-    animationTimeOrigin: number
-  }
-
-  class StartScreen {
-    type: string
-    animationTimeOrigin: number
-  }
-
-  class ResultScreen {
-    type: string
-    score: number
-    animationTimeOrigin: number
-  }
-
-  class GameState {}
-
-  GameFadeStatus -- InGame
-  Board -- InGame
-  Nothing -- InGame
-  CellHeld -- InGame
-  AnimateSwap -- InGame
-  ShrinkCandies -- InGame
-  NewCandies -- InGame
-  InGame -- GameState
-  StartScreen -- GameState
-  ResultScreen -- GameState
+  subgraph InGameVariants
+    Nothing
+    CellHeld
+    AnimateSwap
+    RejectSwap
+    ShrinkCandies
+    NewCandies
+  end
 ```
 
 ## Conclusion
