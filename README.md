@@ -59,7 +59,7 @@ graph LR
 
 ```mermaid
 flowchart LR
-  A["constructor(canvas: HTMLCanvasElement)"] --> B["canvas.addEventListener('mousedown', (event) => {...})"]
+  A["MousePosition(canvas: HTMLCanvasElement)"] --> B["canvas.addEventListener('mousedown', (event) => {...})"]
   A --> C["canvas.addEventListener('mouseup', (event) => {...})"]
   A --> D["canvas.addEventListener('mousemove', (event) => {...})"]
   A --> E["canvas.addEventListener('touchstart', (event) => {...})"]
