@@ -61,9 +61,15 @@ class MousePosition {
     this.mouseDownHandler = new MouseDownHandler(this);
     this.mouseUpHandler = new MouseUpHandler(this);
 
-    canvas.addEventListener("mousedown", (event) => this.mouseDownHandler.handle(event));
-    canvas.addEventListener("mouseup", (event) => this.mouseUpHandler.handle(event));
-    canvas.addEventListener("mousemove", (event) => this.mouseEventHandler.handle(event));
+    canvas.addEventListener("mousedown", (event) =>
+      this.mouseDownHandler.handle(event)
+    );
+    canvas.addEventListener("mouseup", (event) =>
+      this.mouseUpHandler.handle(event)
+    );
+    canvas.addEventListener("mousemove", (event) =>
+      this.mouseEventHandler.handle(event)
+    );
     canvas.addEventListener("touchstart", (event) => {
       this.leftButtonHeld = true;
       this.touchEventHandler.handle(event);
@@ -75,7 +81,9 @@ class MousePosition {
       this.leftButtonHeld = false;
       this.touchEventHandler.handle(event);
     });
-    canvas.addEventListener("touchmove", (event) => this.touchEventHandler.handle(event));
+    canvas.addEventListener("touchmove", (event) =>
+      this.touchEventHandler.handle(event)
+    );
   }
 }
 
