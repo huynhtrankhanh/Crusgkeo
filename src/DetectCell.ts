@@ -92,4 +92,4 @@ class DetectCell implements IDetectCell {
   }
 }
 
-export { IDetectCell, DetectCellBuilder };
+export { DetectCellBuilder };
