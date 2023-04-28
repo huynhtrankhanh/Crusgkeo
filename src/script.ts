@@ -60,12 +60,12 @@ import { waitForAllImages } from "./textures";
     );
 
     const detectCell = new DetectCellBuilder()
-  .withWidth(width)
-  .withHeight(height)
-  .withRowCount(rowCount)
-  .withColumnCount(columnCount)
-  .withCellWidth(cellWidth)
-  .build();
+      .withWidth(width)
+      .withHeight(height)
+      .withRowCount(rowCount)
+      .withColumnCount(columnCount)
+      .withCellWidth(cellWidth)
+      .build();
 
     const cell = detectCell.detect(mousePosition.x, mousePosition.y);
 
