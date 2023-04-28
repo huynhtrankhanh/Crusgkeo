@@ -204,6 +204,11 @@ import { waitForAllImages } from "./textures";
       }
 
       drawBoard.displayScore(state.state.score);
+      const timeElapsed=time-state.state.gameStartAt;
+      const timeLimit = 30000;
+      const displayedTimeLeft = Math.trunc(Math.max(timeElapsed-timeLimit,0));
+      drawBoard.displayTime(displayedTimeLeft);
+      if(timeElapsed>=timeLimit)state.fadeGame(time);
     };
 
     if (
