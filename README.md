@@ -30,7 +30,7 @@ The component of the game that deals with drawing the falling candies on the gam
 
 The game is built using Vite, a fast and lightweight build tool. To run the server, use the command `npm run dev`. The game can then be played at `localhost:5173`.
 
-## Class Diagram
+## Diagrams
 
 ```mermaid
 graph LR
@@ -55,6 +55,24 @@ graph LR
     ShrinkCandies
     NewCandies
   end
+```
+
+```mermaid
+flowchart LR
+  A["constructor(canvas: HTMLCanvasElement)"] --> B["canvas.addEventListener('mousedown', (event) => {...})"]
+  A --> C["canvas.addEventListener('mouseup', (event) => {...})"]
+  A --> D["canvas.addEventListener('mousemove', (event) => {...})"]
+  A --> E["canvas.addEventListener('touchstart', (event) => {...})"]
+  A --> F["canvas.addEventListener('touchcancel', () => {...})"]
+  A --> G["canvas.addEventListener('touchend', (event) => {...})"]
+  A --> H["canvas.addEventListener('touchmove', (event) => {...})"]
+  B -->|"leftButtonHeld = true, x = event.clientX, y = event.clientY"| I((Mouse Position))
+  C -->|"leftButtonHeld = false, x = event.clientX, y = event.clientY"| I
+  D -->|"x = event.clientX, y = event.clientY"| I
+  E -->|"leftButtonHeld = true, x = event.touches[0].clientX, y = event.touches[0].clientY"| I
+  F -->|"leftButtonHeld = false"| I
+  G -->|"leftButtonHeld = false, x = event.touches[0].clientX, y = event.touches[0].clientY"| I
+  H -->|"x = event.touches[0].clientX, y = event.touches[0].clientY"| I
 ```
 
 ## Conclusion
