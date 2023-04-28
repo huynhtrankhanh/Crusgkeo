@@ -71,8 +71,10 @@ class DetectCell implements IDetectCell {
   detect(x: number, y: number): { row: number; column: number } | null {
     const centerX = this.#config.width / 2;
     const centerY = this.#config.height / 2;
-    const topLeftX = centerX - (this.#config.cellWidth * this.#config.columnCount) / 2;
-    const topLeftY = centerY - (this.#config.cellWidth * this.#config.rowCount) / 2;
+    const topLeftX =
+      centerX - (this.#config.cellWidth * this.#config.columnCount) / 2;
+    const topLeftY =
+      centerY - (this.#config.cellWidth * this.#config.rowCount) / 2;
     const translatedX = x - topLeftX;
     const translatedY = y - topLeftY;
     if (
