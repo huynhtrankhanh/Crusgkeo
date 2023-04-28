@@ -118,19 +118,20 @@ import { waitForAllImages } from "./textures";
     } else if (state.state.type === "result screen fades away") {
       return;
     }
-const inGame=state.state.type === "cell held" ||
-      state.state.fadeStatus.type === "no";
+    const inGame =
+      state.state.type === "cell held" || state.state.fadeStatus.type === "no";
 
-if(inGame){
-    if (mousePosition.leftButtonHeld) {
-      if (cell === null) {
-        state.holdOutsideBoard();
+    if (inGame) {
+      if (mousePosition.leftButtonHeld) {
+        if (cell === null) {
+          state.holdOutsideBoard();
+        } else {
+          state.holdCell(cell.row, cell.column, time);
+        }
       } else {
-        state.holdCell(cell.row, cell.column, time);
+        state.releaseMouse();
       }
-    } else {
-      state.releaseMouse();
-    }}
+    }
 
     const drawGame = (time: number, suspend: boolean) => {
       if (
@@ -216,9 +217,7 @@ if(inGame){
       if (timeElapsed >= timeLimit) state.fadeGame(time);
     };
 
-    if (
-      inGame
-    ) {
+    if (inGame) {
       drawGame(time, false);
     } else {
       context.save();
@@ -234,7 +233,7 @@ if(inGame){
       context.restore();
     }
 
-    if (cell !== null&&inGame) drawBoard.highlightCell(cell.row, cell.column);
+    if (cell !== null && inGame) drawBoard.highlightCell(cell.row, cell.column);
   });
 })();
 export {};
