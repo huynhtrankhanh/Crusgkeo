@@ -69,7 +69,7 @@ import { waitForAllImages } from "./textures";
 
     const cell = detectCell.detect(mousePosition.x, mousePosition.y);
 
-    const drawStartScreen = () => {
+    const headerAndSubtitle = (header: string, subtitle: string) => {
       context.save();
       context.clearRect(0, 0, width, height);
       context.fillStyle = "red";
@@ -85,16 +85,19 @@ import { waitForAllImages } from "./textures";
       };
 
       {
-        const text = "Candy Crush Clone";
+        const text = header;
         const metrics = context.measureText(text);
         if (metrics.width >= width) context.font = 'bold 48px "Lobster Two"';
         drawText("Candy Crush Clone", width / 2, height / 2);
       }
       context.font = '30px "Lobster Two"';
       context.fillStyle = "black";
-      drawText("tap anywhere to play", width / 2, height / 2 + 30);
+      drawText(subtitle, width / 2, height / 2 + 30);
       context.restore();
     };
+
+    const drawStartScreen = ()=> headerAndSubtitle ("Candy Crush Clone","tap anywhere to play");
+    const drawResultScreen=(score: number)=>headerAndSubtitle ("Score: "+score, "tap to play again");
 
     if (state.state.type === "start screen") {
       drawStartScreen();
@@ -114,8 +117,15 @@ import { waitForAllImages } from "./textures";
       }
       return;
     } else if (state.state.type === "result screen") {
+  drawResultScreen (state.state.score);
       return;
     } else if (state.state.type === "result screen fades away") {
+if (progress>=1){
+state.displayGame(time);}else{
+context.save();
+context.globalAlpha = 1 - progress;
+drawResultScreen(state.state.score);
+context.restore();}
       return;
     }
     const inGame =
