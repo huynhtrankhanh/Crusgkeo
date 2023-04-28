@@ -217,7 +217,10 @@ import { waitForAllImages } from "./textures";
       if (timeElapsed >= timeLimit) state.fadeGame(time);
     };
 
-    if (state.state.type === "cell held" || state.state.fadeStatus.type === "no") {
+    if (
+      state.state.type === "cell held" ||
+      state.state.fadeStatus.type === "no"
+    ) {
       drawGame(time, false);
     } else {
       context.save();
