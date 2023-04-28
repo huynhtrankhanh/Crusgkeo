@@ -88,7 +88,7 @@ import { waitForAllImages } from "./textures";
         const text = header;
         const metrics = context.measureText(text);
         if (metrics.width >= width) context.font = 'bold 48px "Lobster Two"';
-        drawText("Candy Crush Clone", width / 2, height / 2);
+        drawText(text, width / 2, height / 2);
       }
       context.font = '30px "Lobster Two"';
       context.fillStyle = "black";
