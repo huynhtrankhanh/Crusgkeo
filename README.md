@@ -30,6 +30,77 @@ The component of the game that deals with drawing the falling candies on the gam
 
 The game is built using Vite, a fast and lightweight build tool. To run the server, use the command `npm run dev`. The game can then be played at `localhost:5173`.
 
+## Class Diagram
+
+```mermaid
+classDiagram
+  class GameFadeStatus {
+    type: string
+    startFadingAt: number
+  }
+
+  class Board {}
+
+  class InGame {
+    board: Board
+    type: string
+    mouseNotReleasedYet: boolean
+    fadeStatus: GameFadeStatus
+  }
+
+  class Nothing {
+    type: "nothing"
+  }
+
+  class CellHeld {
+    type: "cell held"
+    heldCell: { row: number; column: number }
+  }
+
+  class AnimateSwap {
+    type: "animate swap" | "reject swap"
+    heldCell: { row: number; column: number }
+    swappedWith: { row: number; column: number }
+    animationTimeOrigin: number
+  }
+
+  class ShrinkCandies {
+    type: "shrink candies"
+    toBeCleared: (row: number, column: number) => boolean
+    animationTimeOrigin: number
+  }
+
+  class NewCandies {
+    type: "new candies"
+    newCandies: Candy[][]
+    animationTimeOrigin: number
+  }
+
+  class StartScreen {
+    type: string
+    animationTimeOrigin: number
+  }
+
+  class ResultScreen {
+    type: string
+    score: number
+    animationTimeOrigin: number
+  }
+
+  class GameState {}
+
+  GameFadeStatus -- InGame
+  Board -- InGame
+  Nothing -- InGame
+  CellHeld -- InGame
+  AnimateSwap -- InGame
+  ShrinkCandies -- InGame
+  NewCandies -- InGame
+  InGame -- GameState
+  StartScreen -- GameState
+  ResultScreen -- GameState
+```
+
 ## Conclusion
 
 This clone of Candy Crush demonstrates how HTML5 canvas, TypeScript, and OOP principles can be used to create a simple game. By managing the game state using discriminated unions and using linear interpolation for animations, the game provides a smooth and engaging experience for players.
