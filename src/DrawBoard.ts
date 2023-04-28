@@ -275,19 +275,19 @@ class DrawBoard {
     context.fillText(text, x, y - height);
     this.#context.restore();
   }
-displayTime(seconds: number){
-this.#context.save();
-const context = this.#context;
-context.font='bold 30px "Lobster Two"';
-context.fillStyle="black";
-const text=seconds+"s";
-const metrics=context.measureText(text);
-const height=metrics.actualBoundingBoxAscent;
-const width=metrics.width;
-const{x,y}=this.#realCoordinates(0,this.#columnCount);
-context.fillText(text,x-width,y-height);
-this.#context.restore();
-}
+  displayTime(seconds: number) {
+    this.#context.save();
+    const context = this.#context;
+    context.font = 'bold 30px "Lobster Two"';
+    context.fillStyle = "black";
+    const text = seconds + "s";
+    const metrics = context.measureText(text);
+    const height = metrics.actualBoundingBoxAscent;
+    const width = metrics.width;
+    const { x, y } = this.#realCoordinates(0, this.#columnCount);
+    context.fillText(text, x - width, y - height);
+    this.#context.restore();
+  }
 }
 
 export default DrawBoard;
