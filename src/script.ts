@@ -122,6 +122,10 @@ import { waitForAllImages } from "./textures";
       drawResultScreen(state.state.score);
       return;
     } else if (state.state.type === "result screen fades away") {
+const origin = state.state.animationTimeOrigin;
+      const duration = 1000;
+      const progress = (time - origin) / duration;
+
       if (progress >= 1) {
         state.displayGame(time);
       } else {
