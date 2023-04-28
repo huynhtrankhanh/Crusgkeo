@@ -207,7 +207,7 @@ import { waitForAllImages } from "./textures";
       const timeElapsed = time - state.state.gameStartAt;
       const timeLimit = 30000;
       const displayedTimeLeft = Math.trunc(
-        Math.max(timeElapsed - timeLimit, 0)
+        Math.max(timeLimit - timeElapsed, 0)
       );
       drawBoard.displayTime(displayedTimeLeft);
       if (timeElapsed >= timeLimit) state.fadeGame(time);
