@@ -96,8 +96,10 @@ import { waitForAllImages } from "./textures";
       context.restore();
     };
 
-    const drawStartScreen = ()=> headerAndSubtitle ("Candy Crush Clone","tap anywhere to play");
-    const drawResultScreen=(score: number)=>headerAndSubtitle ("Score: "+score, "tap to play again");
+    const drawStartScreen = () =>
+      headerAndSubtitle("Candy Crush Clone", "tap anywhere to play");
+    const drawResultScreen = (score: number) =>
+      headerAndSubtitle("Score: " + score, "tap to play again");
 
     if (state.state.type === "start screen") {
       drawStartScreen();
@@ -117,15 +119,17 @@ import { waitForAllImages } from "./textures";
       }
       return;
     } else if (state.state.type === "result screen") {
-  drawResultScreen (state.state.score);
+      drawResultScreen(state.state.score);
       return;
     } else if (state.state.type === "result screen fades away") {
-if (progress>=1){
-state.displayGame(time);}else{
-context.save();
-context.globalAlpha = 1 - progress;
-drawResultScreen(state.state.score);
-context.restore();}
+      if (progress >= 1) {
+        state.displayGame(time);
+      } else {
+        context.save();
+        context.globalAlpha = 1 - progress;
+        drawResultScreen(state.state.score);
+        context.restore();
+      }
       return;
     }
     const inGame =
