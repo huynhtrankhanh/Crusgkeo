@@ -165,8 +165,7 @@ class GameStateManager {
     }
   }
 
-  // since calling this function may trigger an animation, a time origin is taken
-  holdCell(row: number, column: number, timeOrigin: number) {
+    holdCell(row: number, column: number, timeOrigin: number) {
     if (
       this.state.type === "start screen" ||
       this.state.type === "start screen fades away" ||
@@ -265,9 +264,7 @@ class GameStateManager {
     }
   }
 
-  // when the swap animation is complete it's time to call this function
-  // since after calling this function additional animations may be triggered, a time origin is taken
-  completeSwap(animationTimeOrigin: number) {
+   completeSwap(animationTimeOrigin: number) {
     if (this.state.type === "animate swap") {
       const { row: row1, column: column1 } = this.state.heldCell;
       const { row: row2, column: column2 } = this.state.swappedWith;
