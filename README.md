@@ -76,6 +76,7 @@ flowchart LR
 ```
 
 ## Design Patterns
+
 _This section serves to assist the grader in examining this homework project._
 
 This game uses many design patterns to organize the code.
@@ -104,6 +105,7 @@ This game uses many design patterns to organize the code.
 - **Dependency Injection pattern**: Instead of setting properties directly in the `DetectCell` class, a separate `DetectCellConfig` class stores the configuration, which is then passed to the `DetectCell` class.
 
 ## Feature Rundown
+
 _This section serves to assist the grader in examining this homework project._
 
 - **Start screen**: Requests the user to tap to play.
