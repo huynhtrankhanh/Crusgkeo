@@ -274,7 +274,7 @@ class GameStateManager {
         this.state.board[row1][column1],
       ];
 
-      navigator.vibrate(100);
+      navigator.vibrate(70);
 
       this.state = {
         board: this.state.board,
@@ -330,7 +330,7 @@ class GameStateManager {
     const newBoard = fillNewCandies(this.state.board, this.state.newCandies);
 
     if (doesBoardHaveMatches(newBoard)) {
-      navigator.vibrate(100);
+      navigator.vibrate(70);
       this.state = {
         board: newBoard,
         mouseNotReleasedYet: this.state.mouseNotReleasedYet,
