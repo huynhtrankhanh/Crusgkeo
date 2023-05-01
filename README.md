@@ -76,6 +76,7 @@ flowchart LR
 ```
 
 ## Design Patterns
+_This section serves to assist the grader in examining this homework project._
 
 This game uses many design patterns to organize the code.
 
@@ -101,6 +102,18 @@ This game uses many design patterns to organize the code.
 
 - **Builder pattern**: `DetectCellBuilder` constructs the `DetectCell` objects in a step-by-step manner.
 - **Dependency Injection pattern**: Instead of setting properties directly in the `DetectCell` class, a separate `DetectCellConfig` class stores the configuration, which is then passed to the `DetectCell` class.
+
+## Feature Rundown
+_This section serves to assist the grader in examining this homework project._
+
+- **Start screen**: Requests the user to tap to play.
+- **Timer**: The game is timed. The user has to maximize their score in 30 seconds.
+- **Result screen**: The user gets to see how well they did and can start the game again.
+- **Candy swap animation**: The swap can be rejected or accepted, depending on whether the swap creates new matches or not.
+- **Candy shrink animation**: As candies match, they shrink and disappear.
+- **Candy fall animation**: As candies disappear, they leave holes on the board. New candies from the top combined with existing candies above the holes fall down to fill the holes.
+- **Vibration**: As candies are cleared, the device vibrates. Support depends on browser and device type.
+- **Leaderboard**: Displays top 10 scores.
 
 ## Conclusion
 
