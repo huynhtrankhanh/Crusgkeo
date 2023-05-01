@@ -274,6 +274,8 @@ class GameStateManager {
         this.state.board[row1][column1],
       ];
 
+navigator.vibrate(200)
+
       this.state = {
         board: this.state.board,
         mouseNotReleasedYet: this.state.mouseNotReleasedYet,
