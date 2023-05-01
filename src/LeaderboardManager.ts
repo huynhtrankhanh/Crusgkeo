@@ -22,7 +22,7 @@ class Score {
 }
 
 class LeaderboardManager {
-  private static LEADERBOARD_STORAGE_KEY = 'leaderboard';
+  private static LEADERBOARD_STORAGE_KEY = "leaderboard";
   private storageAdapter: StorageAdapter;
   private scores: Score[];
 
@@ -32,21 +32,31 @@ class LeaderboardManager {
   }
 
   private loadScores(): Score[] {
-    const scoresData = this.storageAdapter.load(LeaderboardManager.LEADERBOARD_STORAGE_KEY);
+    const scoresData = this.storageAdapter.load(
+      LeaderboardManager.LEADERBOARD_STORAGE_KEY
+    );
     if (!scoresData || !Array.isArray(scoresData)) {
       return [];
     }
 
-    return scoresData.map((scoreData) => {
-      if (typeof scoreData.name === 'string' && typeof scoreData.value === 'number') {
-        return new Score(scoreData.name, scoreData.value);
-      }
-      return null;
-    }).filter((score) => score !== null);
+    return scoresData
+      .map((scoreData) => {
+        if (
+          typeof scoreData.name === "string" &&
+          typeof scoreData.value === "number"
+        ) {
+          return new Score(scoreData.name, scoreData.value);
+        }
+        return null;
+      })
+      .filter((score) => score !== null);
   }
 
   private saveScores(): void {
-    this.storageAdapter.save(LeaderboardManager.LEADERBOARD_STORAGE_KEY, this.scores);
+    this.storageAdapter.save(
+      LeaderboardManager.LEADERBOARD_STORAGE_KEY,
+      this.scores
+    );
   }
 
   addScore(name: string, value: number): void {
