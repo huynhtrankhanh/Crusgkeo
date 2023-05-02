@@ -120,11 +120,7 @@ import LeaderboardManager from "./LeaderboardManager";
       }
       return;
     } else if (state.state.type === "result screen") {
-      
-      drawResultScreen(
-        state.state.score,
-        
-      );
+      drawResultScreen(state.state.score);
       return;
     } else if (state.state.type === "result screen fades away") {
       const origin = state.state.animationTimeOrigin;
@@ -136,8 +132,7 @@ import LeaderboardManager from "./LeaderboardManager";
       } else {
         context.save();
         context.globalAlpha = 1 - progress;
-           drawResultScreen(
-          state.state.score);
+        drawResultScreen(state.state.score);
         context.restore();
       }
       return;
