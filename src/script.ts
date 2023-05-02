@@ -100,10 +100,7 @@ import LeaderboardManager from "./LeaderboardManager";
     const drawStartScreen = () =>
       headerAndSubtitle("Candy Crush Clone", "tap anywhere to play");
     const drawResultScreen = (score: number, topScores: number[]) =>
-      headerAndSubtitle(
-        "Score: " + score,
-        topScores.join("│")
-      );
+      headerAndSubtitle("Score: " + score, topScores.join("│"));
 
     if (state.state.type === "start screen") {
       drawStartScreen();
