@@ -67,6 +67,7 @@
   <body>
     <div class="container">
       <h1>Top 10 Scores</h1>
+      <a href="/">Back to game</a>
       <table>
         <thead>
           <tr>
@@ -75,46 +76,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td class="score">1000</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td class="score">950</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td class="score">900</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td class="score">850</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td class="score">800</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td class="score">750</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td class="score">700</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td class="score">650</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td class="score">600</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td class="score">550</td>
-          </tr>
+          <script type="module">
+import LeaderboardManager from "./src/LeaderboardManager";
+const leaderboard = new LeaderboardManager ();
+const scores = leaderboard.viewTopScores().map(({value})=>value);
+if (scores.length===0){
+document.write(`<tr><td colspan="2">You haven't played this game yet!</td></tr>`);
+}else{
+document.write(scores.map((score,i)=>`<tr><td>${i+1}</td><td class="score">${score}</td></tr>`));
+}
+</script>
         </tbody>
       </table>
     </div>
