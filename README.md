@@ -116,6 +116,7 @@ _This section serves to assist the grader in examining this homework project._
 - **Candy fall animation**: As candies disappear, they leave holes on the board. New candies from the top combined with existing candies above the holes fall down to fill the holes.
 - **Vibration**: As candies are cleared, the device vibrates. Support depends on browser and device type.
 - **Leaderboard**: Displays top 10 scores.
+- **Leave confirmation**: Mistakes happen. Users may accidentally navigate away from the website during the game. When this occurs, the user has to confirm their action.
 
 ## Conclusion
 
