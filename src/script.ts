@@ -152,7 +152,8 @@ import LeaderboardManager from "./LeaderboardManager";
       }
     }
 
-if (inGame)window.onbeforeunload=()=>"In game!";else window.onbeforeunload=null;
+    if (inGame) window.onbeforeunload = () => "In game!";
+    else window.onbeforeunload = null;
 
     const drawGame = (time: number, suspend: boolean) => {
       if (
