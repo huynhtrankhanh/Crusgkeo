@@ -1,4 +1,4 @@
-# Candy Crush Clone
+# Crusgkeo
 
 This is a clone of the popular game "Candy Crush" implemented using HTML5 canvas, TypeScript, and OOP principles.
 
