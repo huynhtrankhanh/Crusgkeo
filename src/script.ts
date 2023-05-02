@@ -100,7 +100,10 @@ import LeaderboardManager from "./LeaderboardManager";
     const drawStartScreen = () =>
       headerAndSubtitle("Candy Crush Clone", "tap anywhere to play");
     const drawResultScreen = (score: number, topScores: number[]) =>
-      headerAndSubtitle("Score: " + score, "top scores:\n" + topScores.join("│") + "\n" + "tap to play again");
+      headerAndSubtitle(
+        "Score: " + score,
+        "top scores:\n" + topScores.join("│") + "\n" + "tap to play again"
+      );
 
     if (state.state.type === "start screen") {
       drawStartScreen();
@@ -122,7 +125,10 @@ import LeaderboardManager from "./LeaderboardManager";
     } else if (state.state.type === "result screen") {
       const leaderboard = new LeaderboardManager();
       leaderboard.addScore("", state.state.score);
-      drawResultScreen(state.state.score, leaderboard.viewTopScores.map(({score})=>score));
+      drawResultScreen(
+        state.state.score,
+        leaderboard.viewTopScores.map(({ score }) => score)
+      );
       return;
     } else if (state.state.type === "result screen fades away") {
       const origin = state.state.animationTimeOrigin;
