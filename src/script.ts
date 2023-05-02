@@ -124,7 +124,6 @@ import LeaderboardManager from "./LeaderboardManager";
       return;
     } else if (state.state.type === "result screen") {
       const leaderboard = new LeaderboardManager();
-      leaderboard.addScore("", state.state.score);
       drawResultScreen(
         state.state.score,
         leaderboard.viewTopScores.map(({ score }) => score)
@@ -140,7 +139,11 @@ import LeaderboardManager from "./LeaderboardManager";
       } else {
         context.save();
         context.globalAlpha = 1 - progress;
-        drawResultScreen(state.state.score);
+        const leaderboard = new LeaderboardManager();
+      drawResultScreen(
+        state.state.score,
+        leaderboard.viewTopScores.map(({ score }) => score)
+      );
         context.restore();
       }
       return;
@@ -241,7 +244,7 @@ import LeaderboardManager from "./LeaderboardManager";
         Math.max(timeLimit - timeElapsed, 0) / 1000
       );
       drawBoard.displayTime(displayedTimeLeft);
-      if (timeElapsed >= timeLimit) state.fadeGame(time);
+      if (timeElapsed >= timeLimit && !suspend) state.fadeGame(time);
     };
 
     if (
@@ -254,6 +257,9 @@ import LeaderboardManager from "./LeaderboardManager";
       const duration = 1000;
       const progress = (time - state.state.fadeStatus.startFadingAt) / duration;
       if (progress >= 1) {
+        const score = state.state.score;
+        const leaderboard = new LeaderboardManager();
+        leaderboard.addScore("",score);
         state.showResult();
       } else {
         context.clearRect(0, 0, width, height);
