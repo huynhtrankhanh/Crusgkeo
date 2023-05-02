@@ -3,6 +3,7 @@ import DrawBoard from "./DrawBoard";
 import GameStateManager from "./GameState";
 import MousePosition from "./MousePosition";
 import { waitForAllImages } from "./textures";
+import LeaderboardManager from "./LeaderboardManager";
 (async () => {
   await waitForAllImages;
 
@@ -98,8 +99,8 @@ import { waitForAllImages } from "./textures";
 
     const drawStartScreen = () =>
       headerAndSubtitle("Candy Crush Clone", "tap anywhere to play");
-    const drawResultScreen = (score: number) =>
-      headerAndSubtitle("Score: " + score, "tap to play again");
+    const drawResultScreen = (score: number, topScores: number[]) =>
+      headerAndSubtitle("Score: " + score, "top scores:\n" + topScores.join("│") + "\n" + "tap to play again");
 
     if (state.state.type === "start screen") {
       drawStartScreen();
@@ -119,7 +120,9 @@ import { waitForAllImages } from "./textures";
       }
       return;
     } else if (state.state.type === "result screen") {
-      drawResultScreen(state.state.score);
+      const leaderboard = new LeaderboardManager();
+      leaderboard.addScore("", state.state.score);
+      drawResultScreen(state.state.score, leaderboard.viewTopScores.map(({score})=>score));
       return;
     } else if (state.state.type === "result screen fades away") {
       const origin = state.state.animationTimeOrigin;
