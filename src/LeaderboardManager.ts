@@ -49,7 +49,7 @@ class LeaderboardManager {
         }
         return null;
       })
-      .filter((score) => score !== null);
+      .filter((score) => score !== null) as Score[];
   }
 
   private saveScores(): void {
