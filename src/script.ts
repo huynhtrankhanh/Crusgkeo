@@ -102,7 +102,7 @@ import LeaderboardManager from "./LeaderboardManager";
     const drawResultScreen = (score: number, topScores: number[]) =>
       headerAndSubtitle(
         "Score: " + score,
-        "top scores:\n" + topScores.join("│") + "\n" + "tap to play again"
+        topScores.join("│")
       );
 
     if (state.state.type === "start screen") {
