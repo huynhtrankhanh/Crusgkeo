@@ -140,10 +140,10 @@ import LeaderboardManager from "./LeaderboardManager";
         context.save();
         context.globalAlpha = 1 - progress;
         const leaderboard = new LeaderboardManager();
-      drawResultScreen(
-        state.state.score,
-        leaderboard.viewTopScores.map(({ score }) => score)
-      );
+        drawResultScreen(
+          state.state.score,
+          leaderboard.viewTopScores.map(({ score }) => score)
+        );
         context.restore();
       }
       return;
@@ -259,7 +259,7 @@ import LeaderboardManager from "./LeaderboardManager";
       if (progress >= 1) {
         const score = state.state.score;
         const leaderboard = new LeaderboardManager();
-        leaderboard.addScore("",score);
+        leaderboard.addScore("", score);
         state.showResult();
       } else {
         context.clearRect(0, 0, width, height);
