@@ -77,15 +77,24 @@
         </thead>
         <tbody>
           <script type="module">
-import LeaderboardManager from "./src/LeaderboardManager";
-const leaderboard = new LeaderboardManager ();
-const scores = leaderboard.viewTopScores().map(({value})=>value);
-if (scores.length===0){
-document.write(`<tr><td colspan="2">You haven't played this game yet!</td></tr>`);
-}else{
-document.write(scores.map((score,i)=>`<tr><td>${i+1}</td><td class="score">${score}</td></tr>`));
-}
-</script>
+            import LeaderboardManager from "./src/LeaderboardManager";
+            const leaderboard = new LeaderboardManager();
+            const scores = leaderboard
+              .viewTopScores()
+              .map(({ value }) => value);
+            if (scores.length === 0) {
+              document.write(
+                `<tr><td colspan="2">You haven't played this game yet!</td></tr>`
+              );
+            } else {
+              document.write(
+                scores.map(
+                  (score, i) =>
+                    `<tr><td>${i + 1}</td><td class="score">${score}</td></tr>`
+                )
+              );
+            }
+          </script>
         </tbody>
       </table>
     </div>
