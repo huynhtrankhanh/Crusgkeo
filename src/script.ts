@@ -126,7 +126,7 @@ import LeaderboardManager from "./LeaderboardManager";
       const leaderboard = new LeaderboardManager();
       drawResultScreen(
         state.state.score,
-        leaderboard.viewTopScores.map(({ score }) => score)
+        leaderboard.viewTopScores().map(({ score }) => score)
       );
       return;
     } else if (state.state.type === "result screen fades away") {
@@ -142,7 +142,7 @@ import LeaderboardManager from "./LeaderboardManager";
         const leaderboard = new LeaderboardManager();
         drawResultScreen(
           state.state.score,
-          leaderboard.viewTopScores.map(({ score }) => score)
+          leaderboard.viewTopScores().map(({ score }) => score)
         );
         context.restore();
       }
