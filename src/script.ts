@@ -236,7 +236,11 @@ import LeaderboardManager from "./LeaderboardManager";
         Math.max(timeLimit - timeElapsed, 0) / 1000
       );
       drawBoard.displayTime(displayedTimeLeft);
-      if (timeElapsed >= timeLimit && !suspend) state.fadeGame(time);
+      if (timeElapsed >= timeLimit && !suspend) {
+const score = state.state.score;
+        const leaderboard = new LeaderboardManager();
+        leaderboard.addScore("", score);
+state.fadeGame(time);}
     };
 
     if (
@@ -249,9 +253,7 @@ import LeaderboardManager from "./LeaderboardManager";
       const duration = 1000;
       const progress = (time - state.state.fadeStatus.startFadingAt) / duration;
       if (progress >= 1) {
-        const score = state.state.score;
-        const leaderboard = new LeaderboardManager();
-        leaderboard.addScore("", score);
+        
         state.showResult();
       } else {
         context.clearRect(0, 0, width, height);
