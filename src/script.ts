@@ -98,7 +98,7 @@ import LeaderboardManager from "./LeaderboardManager";
     };
 
     const drawStartScreen = () =>
-      headerAndSubtitle("Candy Crush Clone", "tap anywhere to play");
+      headerAndSubtitle("Crusgkeo", "tap anywhere to play");
     const drawResultScreen = (score: number) =>
       headerAndSubtitle("Score: " + score, "tap to play again");
 
