@@ -86,10 +86,12 @@
       if (scores.length === 0) {
         element.innerHTML = `<tr><td colspan="2">You haven't played this game yet!</td></tr>`;
       } else {
-        element.innerHTML = scores.map(
-          (score, i) =>
-            `<tr><td>${i + 1}</td><td class="score">${score}</td></tr>`
-        ).join("");
+        element.innerHTML = scores
+          .map(
+            (score, i) =>
+              `<tr><td>${i + 1}</td><td class="score">${score}</td></tr>`
+          )
+          .join("");
       }
     </script>
   </body>
