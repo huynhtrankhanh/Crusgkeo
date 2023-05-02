@@ -66,8 +66,8 @@
   </head>
   <body>
     <div class="container">
+<a href="/">Back to game</a>
       <h1>Top 10 Scores</h1>
-      <a href="/">Back to game</a>
       <table>
         <thead>
           <tr>
@@ -75,19 +75,23 @@
             <th>Score</th>
           </tr>
         </thead>
-        <tbody>
-          <script type="module">
+        <tbody id="table-body">
+          
+        </tbody>
+      </table>
+    </div><script type="module">
             import LeaderboardManager from "./src/LeaderboardManager";
             const leaderboard = new LeaderboardManager();
             const scores = leaderboard
               .viewTopScores()
               .map(({ value }) => value);
+            const element = document.getElementById("table-body");
             if (scores.length === 0) {
-              document.write(
+              element.innerHTML=(
                 `<tr><td colspan="2">You haven't played this game yet!</td></tr>`
               );
             } else {
-              document.write(
+              element.innerHTML=(
                 scores.map(
                   (score, i) =>
                     `<tr><td>${i + 1}</td><td class="score">${score}</td></tr>`
@@ -95,8 +99,5 @@
               );
             }
           </script>
-        </tbody>
-      </table>
-    </div>
   </body>
 </html>
