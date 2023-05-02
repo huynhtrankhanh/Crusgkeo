@@ -99,8 +99,8 @@ import LeaderboardManager from "./LeaderboardManager";
 
     const drawStartScreen = () =>
       headerAndSubtitle("Candy Crush Clone", "tap anywhere to play");
-    const drawResultScreen = (score: number, topScores: number[]) =>
-      headerAndSubtitle("Score: " + score, topScores.join("│"));
+    const drawResultScreen = (score: number) =>
+      headerAndSubtitle("Score: " + score, "tap to play again");
 
     if (state.state.type === "start screen") {
       drawStartScreen();
@@ -120,10 +120,10 @@ import LeaderboardManager from "./LeaderboardManager";
       }
       return;
     } else if (state.state.type === "result screen") {
-      const leaderboard = new LeaderboardManager();
+      
       drawResultScreen(
         state.state.score,
-        leaderboard.viewTopScores().map(({ value }) => value)
+        
       );
       return;
     } else if (state.state.type === "result screen fades away") {
@@ -136,11 +136,8 @@ import LeaderboardManager from "./LeaderboardManager";
       } else {
         context.save();
         context.globalAlpha = 1 - progress;
-        const leaderboard = new LeaderboardManager();
-        drawResultScreen(
-          state.state.score,
-          leaderboard.viewTopScores().map(({ value }) => value)
-        );
+           drawResultScreen(
+          state.state.score);
         context.restore();
       }
       return;
