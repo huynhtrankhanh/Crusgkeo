@@ -8,7 +8,6 @@ import thirdPlacePNG from "../Texture/ThirdPlacePNG.png";
 import gameBackgroundPNG from "../Textures/GameBackgroundPNG.png";
 import gameBackgroundDarkPNG from "../Textures/GameBackgroundDarkPNG.png";
 
-
 const makeImageObject = (png: string) => {
   const image = new Image();
   image.src = png;
@@ -22,7 +21,7 @@ export const diamondCandy = makeImageObject(diamondCandyPNG);
 export const firstPlace = makeImageObject(firstPlacePNG);
 export const secondPlace = makeImageObject(secondPlacePNG);
 export const thirdPlace = makeImageObject(thirdPlacePNG);
-export const gameBackground = makeImageObject(gameBackgroundPNG)
+export const gameBackground = makeImageObject(gameBackgroundPNG);
 export const gameBackgroundDark = makeImageObject(gameBackgroundDarkPNG);
 
 const waitOnLoad = (image: HTMLImageElement) =>
@@ -31,5 +30,15 @@ const waitOnLoad = (image: HTMLImageElement) =>
   });
 
 export const waitForAllImages = Promise.all(
-  [boardTexture, circleCandy, squareCandy, diamondCandy, firstPlace, secondPlace, thirdPlace, gameBackground, gameBackgroundDark].map(waitOnLoad)
+  [
+    boardTexture,
+    circleCandy,
+    squareCandy,
+    diamondCandy,
+    firstPlace,
+    secondPlace,
+    thirdPlace,
+    gameBackground,
+    gameBackgroundDark,
+  ].map(waitOnLoad)
 );
