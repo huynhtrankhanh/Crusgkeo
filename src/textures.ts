@@ -3,8 +3,8 @@ import circleCandyPNG from "../Textures/CircleCandy.png";
 import squareCandyPNG from "../Textures/SquareCandy.png";
 import diamondCandyPNG from "../Textures/DiamondCandy.png";
 import firstPlacePNG from "../Textures/FirstPlacePNG.png";
-import secondPlacePNG from "../Texture/SecondPlacePNG.png";
-import thirdPlacePNG from "../Texture/ThirdPlacePNG.png";
+import secondPlacePNG from "../Textures/SecondPlacePNG.png";
+import thirdPlacePNG from "../Textures/ThirdPlacePNG.png";
 import gameBackgroundPNG from "../Textures/GameBackgroundPNG.png";
 import gameBackgroundDarkPNG from "../Textures/GameBackgroundDarkPNG.png";
 
