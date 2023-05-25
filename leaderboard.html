@@ -7,7 +7,8 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background: url("../Textures/GameBackgroundDarkPNG.png") center/cover no-repeat;
+        background: url("../Textures/GameBackgroundDarkPNG.png") center/cover
+          no-repeat;
         color: #333;
         text-align: center;
         display: flex;
@@ -97,19 +98,20 @@
       const scores = leaderboard.viewTopScores().map(({ value }) => value);
       const element = document.getElementById("table-body");
 
-      const rankingImages = [
-        firstPlacePNG,secondPlacePNG,thirdPlacePNG
-      ];
+      const rankingImages = [firstPlacePNG, secondPlacePNG, thirdPlacePNG];
 
       if (scores.length === 0) {
         element.innerHTML = `<tr><td colspan="2">You haven't played this game yet!</td></tr>`;
       } else {
         element.innerHTML = scores
-          .map(
-            (score, i) =>
-            i < 3 ?
-              `<tr><td><img class="ranking-img" src="${rankingImages[i] || 'default-ranking.png'}"></td><td class="score">${score}</td></tr>`:
-              `<tr><td><span class="ranking-img">${i+1}</span></td><td class="score">${score}</td></tr>`
+          .map((score, i) =>
+            i < 3
+              ? `<tr><td><img class="ranking-img" src="${
+                  rankingImages[i] || "default-ranking.png"
+                }"></td><td class="score">${score}</td></tr>`
+              : `<tr><td><span class="ranking-img">${
+                  i + 1
+                }</span></td><td class="score">${score}</td></tr>`
           )
           .join("");
       }
