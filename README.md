@@ -157,7 +157,7 @@ flowchart LR
 ```
 
 ```mermaid
-flowchart LR
+flowchart TD
 StorageAdapter((StorageAdapter)) -- "implements" --> LocalStorageAdapter
 LocalStorageAdapter{{LocalStorageAdapter}} -- "save()" --> localStorage
 LocalStorageAdapter -- "load()" --> localStorage
@@ -173,7 +173,7 @@ LeaderboardManager -- "viewTopScores()" --> Score
 ```
 
 ```mermaid
-graph TD
+graph LR
     A[DetectCellBuilder] -->|constructs| C[DetectCellConfig]
     A -->|configures| C
     A -->|build| B[DetectCell]
@@ -227,7 +227,7 @@ I[generateNewCandies] --> J[fillNewCandies]
 ```
 
 ```mermaid
-graph LR
+graph TD
   A[Start Program] --> B[Load Textures]
   B --> C[Initialize Canvas]
   C --> D[Initialize GameStateManager]
