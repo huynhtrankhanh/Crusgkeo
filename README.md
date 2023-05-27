@@ -73,6 +73,36 @@ Animations in the game are managed using linear interpolation. When the state of
 
 The component of the game that deals with drawing the falling candies on the game board takes in the current board state, the new candies that will fall, and the progress of the animation as input. It first creates a "stubbed" version of the board and new candies, where each candy is given a unique ID. It then calculates the new position of each candy after it falls and stores it in an array. It also stores the old position of each candy in another array. The component then draws a grid on the game board, representing the background. It then uses interpolation to smoothly animate the movement of each candy from its old position to its new position, drawing each candy at its interpolated location.
 
+The following section contains more details about how animations and other game elements are drawn on the screen.
+
+## Game Display
+
+There is a class responsible for drawing a game board using the provided input parameters. The game board contains different kinds of candy cells with various shapes, colors, and attributes. The primary purpose of this class is to handle the rendering of the board, along with animating the various actions like swapping, falling, highlight cells, and displaying scores and remaining time.
+
+The class has a constructor that accepts several parameters that define the size and appearance of the game board. These parameters include width, height, cell width, row count, column count, shape size, and the 2D rendering context for drawing on a canvas.
+
+The class starts by defining several private variables, such as width, height, cell width, row count, column count, shape size, and rendering context, to keep track of the input parameters.
+
+Then, it defines several private methods to perform internal tasks such as clearing the board, interpolating values during animation, calculating real coordinates based on row and column values, and drawing individual candy cells.
+
+To draw the candy cells, it utilizes the DrawShapes class, which is responsible for rendering various shapes like circles, squares and diamonds.
+
+Next, the class exposes several public methods, which can be used to perform various actions on the game board. Some of these methods are:
+
+1. drawBoard: This method accepts a board as input and an optional special action parameter. It starts by clearing the current board and renders the board background. Depending on the special action provided, it iterates through all the cells of the board, ignoring cells if necessary, and draws candies using the private drawCandy method.
+
+2. highlightCell: This method accepts row and column values to indicate which cell to highlight. It calculates the real coordinates of the cell and draws a border around it.
+
+3. displayPartialSwap: This method is responsible for animating the swapping of two candies. It accepts parameters for two candies to be swapped and their row and column values. It interpolates the animation progress and draws the candies at their respective positions as they swap.
+
+4. drawPartialFall: This method handles animating the falling of candies when empty cells are created. It accepts the board with blanks, new candies, and animation progress. It initializes arrays for both the old and new positions of the candies and calculates the interpolation of the candies based on the animation progress. The candies are then drawn in their interpolated positions.
+
+5. displayScore: This method displays the current score on the board. It accepts the score value and renders the text on the board.
+
+6. displayTime: This method displays the remaining time on the board. It accepts the time in seconds, calculates text rendering locations, and renders the text on the board.
+
+The main purpose of the DrawBoard class is to visualize the game board and provide a means to animate various actions that occur during the gameplay. It achieves this by leveraging private methods for rendering individual elements and public methods for orchestrating high-level actions.
+
 ## Build Tool
 
 The game is built using Vite, a fast and lightweight build tool. To run the server, use the command `npm run dev`. The game can then be played at `localhost:5173`.
