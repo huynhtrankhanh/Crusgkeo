@@ -215,6 +215,17 @@ graph TD
     end
 ```
 
+```mermaid
+graph TD
+A[generateAnyBoard] --> B[doesBoardHaveMatches]
+A --> C[generateBoardWithoutMatches]
+B --> D[areThereThreeItemsOnALine]
+D --> E[checkRow]
+E --> F[transpose]
+G[blankAllMatches] --> H[getToBeBlankedCells]
+I[generateNewCandies] --> J[fillNewCandies]
+```
+
 ## Design Patterns
 
 _This section serves to assist the grader in examining this homework project._
