@@ -156,6 +156,22 @@ flowchart LR
   H -->|"x = event.touches[0].clientX, y = event.touches[0].clientY"| I
 ```
 
+```mermaid
+flowchart LR
+StorageAdapter((StorageAdapter)) -- "implements" --> LocalStorageAdapter
+LocalStorageAdapter{{LocalStorageAdapter}} -- "save()" --> localStorage
+LocalStorageAdapter -- "load()" --> localStorage
+
+LeaderboardManager{{LeaderboardManager}} -- "uses" --> StorageAdapter
+LeaderboardManager -- "saveScores()" --> StorageAdapter
+LeaderboardManager -- "loadScores()" --> StorageAdapter
+
+Score{{Score}}
+
+LeaderboardManager -- "addScore()" --> Score
+LeaderboardManager -- "viewTopScores()" --> Score
+```
+
 ## Design Patterns
 
 _This section serves to assist the grader in examining this homework project._
