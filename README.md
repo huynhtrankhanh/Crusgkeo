@@ -226,6 +226,31 @@ G[blankAllMatches] --> H[getToBeBlankedCells]
 I[generateNewCandies] --> J[fillNewCandies]
 ```
 
+```mermaid
+graph LR
+  A[Start Program] --> B[Load Textures]
+  B --> C[Initialize Canvas]
+  C --> D[Initialize GameStateManager]
+  D --> E[Event Listeners]
+  E --> F[Draw Start Screen]
+  F --> I[Draw Board]
+  I --> J[Draw Result Screen]
+  J -->|Click Event| K[Start Game]
+  K --> L[Gameplay Processing]
+  L --> M[Update GameState]
+  M --> N[Swap Cells]
+  N --> O[Match Candies]
+  O --> P[Shrink Candies]
+  P --> Q[Handle Falling]
+  Q --> R[Draw Updated Board]
+  R --> S[Check Timer]
+  S -->|Time Limit reached| T[Display Score]
+  S -->|Time Limit not reached| L
+  T --> U[Fade Out Game]
+  U --> J
+  J -->|Click Event| K
+```
+
 ## Design Patterns
 
 _This section serves to assist the grader in examining this homework project._
