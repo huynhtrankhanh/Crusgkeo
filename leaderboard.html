@@ -7,7 +7,7 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background: url("../Textures/GameBackgroundDarkPNG.png") center/cover
+        background: center/cover
           no-repeat;
         color: #333;
         text-align: center;
@@ -94,6 +94,8 @@
       import firstPlacePNG from "./Textures/FirstPlacePNG.png";
       import secondPlacePNG from "./Textures/SecondPlacePNG.png";
       import thirdPlacePNG from "./Textures/ThirdPlacePNG.png";
+      import background from "./Textures/GameBackgroundDarkPNG.png";
+      document.body.backgroundImage = `url(${background})`;
       const leaderboard = new LeaderboardManager();
       const scores = leaderboard.viewTopScores().map(({ value }) => value);
       const element = document.getElementById("table-body");
