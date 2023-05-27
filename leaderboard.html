@@ -94,7 +94,7 @@
       import secondPlacePNG from "./Textures/SecondPlacePNG.png";
       import thirdPlacePNG from "./Textures/ThirdPlacePNG.png";
       import background from "./Textures/GameBackgroundDarkPNG.png";
-      document.body.backgroundImage = `url(${background})`;
+      document.body.style.backgroundImage = `url(${background})`;
       const leaderboard = new LeaderboardManager();
       const scores = leaderboard.viewTopScores().map(({ value }) => value);
       const element = document.getElementById("table-body");
