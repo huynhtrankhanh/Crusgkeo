@@ -74,7 +74,7 @@ import LeaderboardManager from "./LeaderboardManager";
       context.save();
       context.clearRect(0, 0, width, height);
       context.fillStyle = "red";
-      context.font = 'bold 56px "Lobster Two"';
+      context.font = 'bold 100px "Fantasy"';
 
       const drawText = (text: string, centerX: number, centerY: number) => {
         const metrics = context.measureText(text);
