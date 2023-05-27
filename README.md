@@ -6,7 +6,7 @@ This is a clone of the popular game "Candy Crush" implemented using HTML5 canvas
 
 ## Team Responsibilities
 
-It is of great importance to note that all members of the team have contributed equally to the project. It is true that coding  proficiency varies among team members, but this project demands other important skills aside from coding. The identification of bugs, potential improvements, the explanation of the project aims and methods as well as the identification of development experience pain points have contributed to substantial improvements. Without significant input from all members of the team, the project would not have arrived at its current form.
+It is of great importance to note that all members of the team have contributed equally to the project. It is true that coding proficiency varies among team members, but this project demands other important skills aside from coding. The identification of bugs, potential improvements, the explanation of the project aims and methods as well as the identification of development experience pain points have contributed to substantial improvements. Without significant input from all members of the team, the project would not have arrived at its current form.
 
 ## Game Rules
 
