@@ -51,6 +51,22 @@ The workflow of state transitions is designed in such a way that it updates the 
 
 The state transition workflow is significant in maintaining the game logic, smooth rendering of various animations, and determining the legal moves according to the game rules.
 
+## Game Board
+
+The game features a variety of candy objects identified by their shapes and attributes. The shape of the candies can be circle, square, or diamond.
+
+The game board consists of a two-dimensional grid or matrix formed by rows and columns containing candies. A board with blanks is a variation of the main board where some positions are null, indicating the absence of candies in those positions.
+
+The code further includes a function to check if there are any matches on the board. The implementation of the function looks for any configurations where there are three or more candies of the same type in a row or column. It uses a helper function that checks if there are three items of a particular type in a line. The function also has the ability to transpose the board for ease of comparison when searching for matches.
+
+To create a game board, there are two functions available. The first generates a board of any configuration with a given width and height, randomly assigning the type and attribute of candies to each position. The second function, however, ensures that the generated board has no matches by repeatedly generating new boards until a suitable one is found. This function can be slow for large boards, as it continually looks for a suitable configuration.
+
+Blanking all matches is a necessary game mechanic when a match is found. As matches are found, the candies involved in the match are removed or turned into blanks. A provided function does this by inspecting the board and updating the positions where matches are detected to be null.
+
+Once the matches have been removed, new candies must be introduced to the board. This is performed using two functions that generate new candies and insert them into the appropriate positions on the board. The first function generates the new candies, while the second function handles inserting these candies into the board by transposing the board and making space for the new candies.
+
+Finally, there is a function that extracts the positions of the candies that will be blanked or removed when matches are found. It does this by iterating through the board and marking positions where consecutive candies of the same type exist in a row or column. This information is returned as a function that can verify if a certain position has been marked or not.
+
 ## Animations
 
 Animations in the game are managed using linear interpolation. When the state of the game changes, the game calculates the amount of time that has passed since the state change and updates the animation accordingly. This creates smooth animations that reflect the current state of the game.
