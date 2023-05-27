@@ -28,6 +28,29 @@ To move a candy, the player needs to drag and drop it to the desired location. T
 
 The game state is managed using discriminated unions. Each possible state is represented by a type with a unique "type" string. For example, the "nothing" state has a type of "nothing". This makes it easier to handle game logic and animation.
 
+State transitions play a crucial role in managing the flow of any application or game. The workflow of state transitions is the sequence of different states that an application or game goes through when various events occur.
+
+GameStateManager class has been defined with a state attribute which is an instance of the GameState type. Types such as StartScreen, InGame, and ResultScreen represent different states or screens the game can be in, along with various other subtypes used for handling animations, fading, or candy movement events.
+
+The GameStateManager class has methods to handle different game events and transition the game state based on the current state and event. Below is a brief overview of different methods and the workflow of state transitions. 
+
+1. displayStartScreen(): This method is used to start the game by setting the game state to 'start screen'.
+2. fadeStartScreen(timeOrigin): This method is used to fade the start screen away based on the given timeOrigin indicating start of animation.
+3. displayGame(timeOrigin): This method initializes the board state with a new board and transitions the game state to the 'nothing' sub-state of InGame type.
+4. fadeGame(timeOrigin): Fades the game screen based on the given timeOrigin. 
+5. showResult(): Transitions the game state to 'result screen' to show the game score.
+6. fadeResult(timeOrigin): Fades the result screen away based on the given timeOrigin indicating start of animation.
+7. holdOutsideBoard(): Handles the event when the cursor is clicked and held outside the board, making necessary state transitions accordingly.
+8. holdCell(row, column, timeOrigin): Handles the event of holding a cell on the board, followed by the necessary state transitions based on the current game state.
+9. releaseMouse(): Handles the event of releasing the mouse, making the necessary state transitions accordingly.
+10. completeSwap(animationTimeOrigin): Handles the event of swapping two cell candies on the board and checks whether the swap is legal or not based on the game rules. If legal, it transitions to the 'shrink candies' sub-state; otherwise, it returns to the 'nothing' sub-state.
+11. completeShrink(animationTimeOrigin): Handles the event of shrinking matched candies, generates new candies, and transitions the game state to the 'new candies' sub-state.
+12. completeFall(animationTimeOrigin): Handles the event of dropping new candies into blank cells resulting from matched candies. If more matches are found, the state transitions back to 'shrink candies'; otherwise, it transitions to the 'nothing' sub-state.
+
+The workflow of state transitions is designed in such a way that it updates the game state and board as new events are encountered. For instance, when the player holds and drags a cell to another cell, the two cells are swapped, and the game state transitions back to the 'nothing' state. However, this does not mean that when the player continues moving the cursor, the game should continue swapping immediately. Instead, the player must release the mouse to perform a new swap.
+
+The state transition workflow is significant in maintaining the game logic, smooth rendering of various animations, and determining the legal moves according to the game rules.
+
 ## Animations
 
 Animations in the game are managed using linear interpolation. When the state of the game changes, the game calculates the amount of time that has passed since the state change and updates the animation accordingly. This creates smooth animations that reflect the current state of the game.
