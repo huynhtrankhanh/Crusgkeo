@@ -114,7 +114,6 @@
       }
       body {
         line-height: 1;
-        background-image: url("../Textures/GameBackgroundDarkPNG.png");
         background-size: cover;
       }
       ol,
@@ -179,6 +178,10 @@
   </head>
   <body>
     <canvas id="canvas"></canvas>
+    <script type="module">
+      import background from "./Textures/GameBackgroundDarkPNG.png";
+      document.body.style.background = `url(${background})`;
+    </script>
     <script src="src/script.ts" type="module"></script>
     <div
       style="
