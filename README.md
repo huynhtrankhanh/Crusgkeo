@@ -32,12 +32,12 @@ State transitions play a crucial role in managing the flow of any application or
 
 GameStateManager class has been defined with a state attribute which is an instance of the GameState type. Types such as StartScreen, InGame, and ResultScreen represent different states or screens the game can be in, along with various other subtypes used for handling animations, fading, or candy movement events.
 
-The GameStateManager class has methods to handle different game events and transition the game state based on the current state and event. Below is a brief overview of different methods and the workflow of state transitions. 
+The GameStateManager class has methods to handle different game events and transition the game state based on the current state and event. Below is a brief overview of different methods and the workflow of state transitions.
 
 1. displayStartScreen(): This method is used to start the game by setting the game state to 'start screen'.
 2. fadeStartScreen(timeOrigin): This method is used to fade the start screen away based on the given timeOrigin indicating start of animation.
 3. displayGame(timeOrigin): This method initializes the board state with a new board and transitions the game state to the 'nothing' sub-state of InGame type.
-4. fadeGame(timeOrigin): Fades the game screen based on the given timeOrigin. 
+4. fadeGame(timeOrigin): Fades the game screen based on the given timeOrigin.
 5. showResult(): Transitions the game state to 'result screen' to show the game score.
 6. fadeResult(timeOrigin): Fades the result screen away based on the given timeOrigin indicating start of animation.
 7. holdOutsideBoard(): Handles the event when the cursor is clicked and held outside the board, making necessary state transitions accordingly.
