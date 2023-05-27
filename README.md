@@ -4,6 +4,10 @@ This is a clone of the popular game "Candy Crush" implemented using HTML5 canvas
 
 [Play now!](https://cheery-bublanina-f00bde.netlify.app)
 
+## Team Responsibilities
+
+It is of great importance to note that all members of the team have contributed equally to the project. It is true that coding  proficiency varies among team members, but this project demands other important skills aside from coding. The identification of bugs, potential improvements, the explanation of the project aims and methods as well as the identification of development experience pain points have contributed to substantial improvements. Without significant input from all members of the team, the project would not have arrived at its current form.
+
 ## Game Rules
 
 The game follows the same basic rules as Candy Crush, but with some limitations. The player needs to swap adjacent candies to create a row or column of three or more candies of the same type. When this happens, those candies disappear, and new ones fall from the top to fill the gaps. The game ends when the player runs out of time.
