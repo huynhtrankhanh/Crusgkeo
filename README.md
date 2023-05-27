@@ -172,6 +172,49 @@ LeaderboardManager -- "addScore()" --> Score
 LeaderboardManager -- "viewTopScores()" --> Score
 ```
 
+```mermaid
+graph TD
+    A[DetectCellBuilder] -->|constructs| C[DetectCellConfig]
+    A -->|configures| C
+    A -->|build| B[DetectCell]
+    C -->|used by| B
+    D[IDetectCell] -.->|implements| B
+
+    subgraph Config
+    C1["width"]
+    C2["height"]
+    C3["rowCount"]
+    C4["columnCount"]
+    C5["cellWidth"]
+    C -->|contains| C1
+    C -->|contains| C2
+    C -->|contains| C3
+    C -->|contains| C4
+    C -->|contains| C5
+    end
+
+    subgraph Builder_Methods
+    M1["withWidth(width: number)"]
+    M2["withHeight(height: number)"]
+    M3["withRowCount(rowCount: number)"]
+    M4["withColumnCount(columnCount: number)"]
+    M5["withCellWidth(cellWidth: number)"]
+    M6["build()"]
+    A -->|uses| M1
+    A -->|uses| M2
+    A -->|uses| M3
+    A -->|uses| M4
+    A -->|uses| M5
+    A -->|uses| M6
+    end
+
+    subgraph Detect_Method
+    D1["detect(x: number, y: number)"]
+    D -->|uses| D1
+    B -->|uses| D1
+    end
+```
+
 ## Design Patterns
 
 _This section serves to assist the grader in examining this homework project._
