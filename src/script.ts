@@ -46,7 +46,7 @@ import LeaderboardManager from "./LeaderboardManager";
       Math.trunc(
         Math.min((width - 20) / columnCount, (height - 20) / rowCount)
       ),
-      64
+      96
     );
     const shapeSize = Math.trunc(cellWidth * 0.85);
 
