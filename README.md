@@ -4,9 +4,19 @@ This is a clone of the popular game "Candy Crush" implemented using HTML5 canvas
 
 [Play now!](https://cheery-bublanina-f00bde.netlify.app)
 
+# Project Discontinued
+
+The final OOP presentation occured on May 30, 2023. There were lots of interesting games of all stripes, and I'm not sure how this game stacked up against all those games. One very interesting game is [Grybotector](https://github.com/nathang0147/Grybotector). Other projects in the presentation have all sorts of bugs, and Crusgkeo is much more stable. But it's likely that creativity and the appropriate usage of OOP principles are valued much more than stability.
+
+I'm very proud of all the things I and other team members have done. Other team members tried their best to improve this game, including giving feedback and designing game assets. I am eternally grateful for their help. They also helped with designing the slides for the presentation and submitting the report.
+
+Honestly, my only intention is to pass the OOP course. I don't need good grades, I only need enough to maintain my tuition-exempt status. I did the minimum necessary without going above and beyond. And I wrote most of the code on my phone, not a laptop or a desktop PC. I worked on this project while jogging around the city. I wasn't putting too much effort. I would say that even though the other teammates didn't work on the intimate details of the game logic, they still worked much harder than me.
+
+This project will not receive further updates. The code is just done. It already served its purpose. :wave:
+
 ## Team Responsibilities
 
-It is of great importance to note that all members of the team have contributed equally to the project. It is true that coding proficiency varies among team members, but this project demands other important skills aside from coding. The identification of bugs, potential improvements, the explanation of the project aims and methods as well as the identification of development experience pain points have contributed to substantial improvements. Without significant input from all members of the team, the project would not have arrived at its current form.
+It is of great importance to note that all members of the team have contributed equally to the project. It is true that coding proficiency varies among team members, but this project demands other important skills aside from coding. The identification of bugs, potential improvements, the explanation of the project's aims and methods as well as the identification of development experience pain points have contributed to substantial improvements. Without significant input from all members of the team, the project would not have arrived at its current form.
 
 ## Game Rules
 
